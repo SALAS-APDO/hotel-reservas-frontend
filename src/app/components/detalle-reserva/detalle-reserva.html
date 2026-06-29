@@ -1,0 +1,101 @@
+<div class="booking-container">
+  <div class="booking-header">
+    <p>TU PRÓXIMO DESTINO</p>
+    <h2>PROCESO DE RESERVA</h2>
+  </div>
+
+  <div class="booking-content">
+    <div class="card-form">
+      <h3>📋 Datos del Huésped Principal</h3>
+      <form (ngSubmit)="confirmarReserva()">
+        
+        <div class="form-group-row">
+          <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" [(ngModel)]="formulario.nombre" name="nombre" required placeholder="Ej. Juan">
+          </div>
+          <div class="form-group">
+            <label>Apellido:</label>
+            <input type="text" [(ngModel)]="formulario.apellido" name="apellido" required placeholder="Ej. Dueñas">
+          </div>
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label>Tipo Documento:</label>
+            <select [(ngModel)]="formulario.tipoDocumento" name="tipoDocumento">
+              <option value="DNI">DNI</option>
+              <option value="PASAPORTE">Pasaporte</option>
+              <option value="CE">Carnet de Extranjería</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Número Documento:</label>
+            <input type="text" [(ngModel)]="formulario.numeroDocumento" name="numeroDocumento" required placeholder="Número de doc">
+          </div>
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label>Correo Electrónico:</label>
+            <input type="email" [(ngModel)]="formulario.correo" name="correo" required placeholder="ejemplo@correo.com">
+          </div>
+          <div class="form-group">
+            <label>Teléfono:</label>
+            <input type="text" [(ngModel)]="formulario.telefono" name="telefono" placeholder="999888777">
+          </div>
+        </div>
+
+        <h3 class="seccion-facturacion">💳 Detalles de Facturación</h3>
+        
+        <div class="form-group-row">
+          <div class="form-group">
+            <label>Tipo Comprobante:</label>
+            <select [(ngModel)]="formulario.tipoComprobante" name="tipoComprobante">
+              <option value="BOLETA">Boleta</option>
+              <option value="FACTURA">Factura</option>
+            </select>
+          </div>
+          <div class="form-group" *ngIf="formulario.tipoComprobante === 'FACTURA'">
+            <label>RUC de la Empresa:</label>
+            <input type="text" [(ngModel)]="formulario.rucEmpresa" name="rucEmpresa" placeholder="Ingrese las 11 cifras del RUC">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-confirmar">Confirmar y Registrar Reserva 🏨</button>
+      </form>
+    </div>
+
+    <div class="card-summary" *ngIf="habitacion">
+      <div class="room-tag">{{ habitacion.tipoHabitacion || 'HABITACIÓN SELECCIONADA' }}</div>
+      
+      <div class="summary-details">
+        <p><strong>📅 Entrada:</strong> <span>{{ busqueda.fechaLlegada }}</span></p>
+        <p><strong>📅 Salida:</strong> <span>{{ busqueda.fechaSalida }}</span></p>
+        <p><strong>🌙 Noches:</strong> <span>{{ cantNoches }} noche(s)</span></p>
+        <p><strong>👥 Huéspedes:</strong> <span>{{ busqueda.adultos }} Ad, {{ busqueda.ninos }} Niñ</span></p>
+      </div>
+
+      <hr>
+
+      <div class="price-breakdown">
+        <div class="price-row">
+          <span>Precio por Noche:</span>
+          <span>S/. {{ habitacion.precioPorNoche }}</span>
+        </div>
+        <div class="price-row">
+          <span>Subtotal (Sin IGV):</span>
+          <span>S/. {{ subtotal }}</span>
+        </div>
+        <div class="price-row">
+          <span>IGV (18%):</span>
+          <span>S/. {{ igv }}</span>
+        </div>
+        <div class="total-row">
+          <span>Total a Pagar:</span>
+          <span class="total-price">S/. {{ total }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

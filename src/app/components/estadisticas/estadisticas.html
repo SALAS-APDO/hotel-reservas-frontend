@@ -1,0 +1,79 @@
+<div class="header-contenido">
+  <h2>📈 Tablero de Estadísticas</h2>
+  <p class="subtitulo">Rendimiento y ventas en tiempo real</p>
+</div>
+
+<div class="dashboard-grid">
+  <div class="stat-card">
+    <div class="stat-icon icon-verde">💰</div>
+    <div class="stat-info">
+      <h3>S/ {{ recaudadoHoy | number:'1.2-2' }}</h3>
+      <p>Recaudado Hoy</p>
+    </div>
+    <div class="stat-progress-container">
+      <div class="progress-labels">
+        <span>Avance Diario</span>
+        <span>Meta: S/ {{ metaDiaria }}</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" [style.width.%]="porcentajeMetaDiaria"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon icon-azul">📅</div>
+    <div class="stat-info">
+      <h3>S/ {{ recaudadoMes | number:'1.2-2' }}</h3>
+      <p>Acumulado del Mes</p>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon icon-naranja">🛏️</div>
+    <div class="stat-info">
+      <h3>{{ habitacionesOcupadas }} / {{ totalHabitaciones }}</h3>
+      <p>Habitaciones Ocupadas Hoy</p>
+    </div>
+  </div>
+</div>
+
+<div class="panel-anual">
+  <div class="header-anual">
+    <h3>📊 Historial de Ventas {{ anioActual }}</h3>
+    <span class="meta-label">Meta Mensual Esperada: <strong>S/ {{ metaMensual }}</strong></span>
+  </div>
+
+  <div class="tabla-container">
+    <table class="tabla-admin">
+      <thead>
+        <tr>
+          <th>Mes del Año</th>
+          <th>Total Recaudado</th>
+          <th style="width: 40%;">Gráfico de Rendimiento</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mes of ventasPorMes">
+          <td><strong>{{ mes.nombre }}</strong></td>
+          <td>S/ {{ mes.total | number:'1.2-2' }}</td>
+          <td>
+            <div class="barra-mes-bg">
+              <div class="barra-mes-fill"
+                   [ngClass]="{'bg-verde': mes.estado === 'alcanzado', 'bg-rojo': mes.estado === 'bajo', 'bg-gris': mes.estado === 'futuro'}"
+                   [style.width.%]="(mes.total / metaMensual) * 100 > 100 ? 100 : (mes.total / metaMensual) * 100">
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="badge"
+                  [ngClass]="{'badge-verde': mes.estado === 'alcanzado', 'badge-rojo': mes.estado === 'bajo', 'badge-gris': mes.estado === 'futuro'}">
+              {{ mes.estado === 'alcanzado' ? '🟢 Superado' : (mes.estado === 'bajo' ? '🔴 Por debajo' : '⚪ Pendiente') }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

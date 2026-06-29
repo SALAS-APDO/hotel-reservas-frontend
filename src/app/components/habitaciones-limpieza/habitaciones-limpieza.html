@@ -1,0 +1,50 @@
+<div class="habitaciones-container">
+  
+  <div class="header-contenido">
+    <h2>🛏️ Estado de Habitaciones</h2>
+    <div class="leyenda">
+      <span class="badge-leyenda">🟩 Disponible</span>
+      <span class="badge-leyenda">🟥 Ocupada</span>
+      <span class="badge-leyenda">🟨 Limpieza</span>
+    </div>
+  </div>
+
+  <div class="grid-habitaciones">
+    
+    <div *ngFor="let hab of habitaciones" 
+         class="tarjeta-habitacion" 
+         [ngClass]="{
+           'estado-libre': hab.estado === 'DISPONIBLE',
+           'estado-ocupada': hab.estado === 'OCUPADA',
+           'estado-limpieza': hab.estado === 'LIMPIEZA'
+         }">
+      
+      <div class="tarjeta-header">
+        <h3>{{ hab.numeroHabitacion }}</h3>
+        <span class="icono-estado" [ngSwitch]="hab.estado">
+          <span *ngSwitchCase="'DISPONIBLE'">✅</span>
+          <span *ngSwitchCase="'OCUPADA'">🔒</span>
+          <span *ngSwitchCase="'LIMPIEZA'">🧹</span>
+          <span *ngSwitchDefault>❓</span>
+        </span>
+      </div>
+      
+      <div class="tarjeta-body">
+        <p><strong>Tipo:</strong> {{ hab.tipoHabitacion }}</p>
+        <p><strong>Capacidad:</strong> 👤 x{{ hab.capacidadMaxima }}</p>
+        <p><strong>Precio:</strong> S/ {{ hab.precioPorNoche }}</p>
+      </div>
+
+      <div class="tarjeta-footer">
+        <select class="select-estado" (change)="cambiarEstado(hab, $event)">
+          <option value="DISPONIBLE" [selected]="hab.estado === 'DISPONIBLE'">DISPONIBLE</option>
+          <option value="OCUPADA" [selected]="hab.estado === 'OCUPADA'">OCUPADA</option>
+          <option value="LIMPIEZA" [selected]="hab.estado === 'LIMPIEZA'">LIMPIEZA</option>
+        </select>
+      </div>
+      
+    </div>
+
+  </div>
+
+</div>

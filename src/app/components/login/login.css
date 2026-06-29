@@ -1,0 +1,100 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+  background-color: #f4f7f6; /* Un gris muy suave y elegante para el fondo */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Diseño de la tarjeta blanca */
+.login-card {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Botón de escape */
+.btn-volver {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #3498db;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.btn-volver:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+/* Textos del encabezado */
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-header h2 {
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+  font-size: 26px;
+}
+
+.login-header p {
+  color: #7f8c8d;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Diseño de las cajas de texto */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #34495e;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccd1d9;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box; /* Evita que el input se salga de la tarjeta */
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.4);
+}
+
+/* Diseño del botón ingresar */
+.btn-login {
+  width: 100%;
+  padding: 14px;
+  background-color: #2ecc71; /* Verde profesional */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.btn-login:hover {
+  background-color: #27ae60;
+}

@@ -1,0 +1,22 @@
+<nav class="navbar">
+  <div class="brand">
+    <h1 routerLink="/" style="cursor: pointer;">🏨 Hoteles Inti</h1>
+  </div>
+  
+  <ul class="nav-links">
+    @if (!isAdmin) {
+      <li><a routerLink="/destinos">Destinos</a></li>
+      <li><a routerLink="/">Hoteles</a></li>
+      <li><a routerLink="/nosotros">Nosotros</a></li>
+    }
+    
+    </ul>
+
+  <div class="actions">
+    <button *ngIf="!isLogged" routerLink="/login" class="btn-login">Iniciar sesión</button>
+
+    <button *ngIf="isLogged" (click)="cerrarSesion()" class="btn-logout" style="background-color: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
+      Cerrar sesión 🚪
+    </button>
+  </div>
+</nav>

@@ -1,0 +1,104 @@
+.nosotros-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background-color: #f8f9fa;
+  padding-bottom: 50px;
+}
+
+.nosotros-hero {
+  background: linear-gradient(rgba(15, 82, 159, 0.85), rgba(15, 82, 159, 0.95)), 
+              url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1200') no-repeat center/cover;
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.nosotros-hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.quienes-somos {
+  display: flex;
+  max-width: 1100px;
+  margin: 50px auto;
+  padding: 0 20px;
+  gap: 40px;
+  align-items: center;
+}
+
+.texto-somos {
+  flex: 1;
+}
+
+.texto-somos h2 {
+  color: #0f529f;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.texto-somos p {
+  line-height: 1.7;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.imagen-placeholder {
+  flex: 1;
+}
+
+.imagen-placeholder img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.valores-section {
+  max-width: 1100px;
+  margin: 60px auto;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.valores-section h2 {
+  color: #0f529f;
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.valores-grid {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.valor-card {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+  border-top: 4px solid #ffb703;
+}
+
+.valor-card:hover {
+  transform: translateY(-5px);
+}
+
+.valor-card .icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.valor-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #0f529f;
+}
+
+@media (max-width: 768px) {
+  .quienes-somos { flex-direction: column; }
+}

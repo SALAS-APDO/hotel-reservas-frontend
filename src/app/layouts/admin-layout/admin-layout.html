@@ -1,0 +1,30 @@
+<div class="admin-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>🏨 Panel Inti</h2>
+      <p>Administrador</p>
+    </div>
+    
+    <ul class="sidebar-menu">
+      <li routerLinkActive="active">
+        <a routerLink="/admin-dashboard/reservas">📊 Gestión de Reservas</a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/admin-dashboard/habitaciones">🛏️ Habitaciones y Limpieza</a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/admin-dashboard/clientes">👥 Clientes</a>
+      <li routerLinkActive="active">
+        <a routerLink="/admin-dashboard/estadisticas">📈 Estadísticas</a>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <button class="btn-logout-lateral" (click)="cerrarSesionAdmin()">🚪 Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

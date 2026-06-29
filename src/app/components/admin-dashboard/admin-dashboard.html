@@ -1,0 +1,186 @@
+<div class="header-contenido" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+  <h2>Reservas Activas</h2>
+  
+  <div style="display: flex; gap: 10px;">
+    <button class="btn-excel" (click)="descargarReporteExcel()" style="background-color: #27ae60; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s;">
+      📄 Descargar Excel
+    </button>
+    
+    <button class="btn-nuevo" (click)="abrirModalNuevo()">+ Nueva Reserva Manual</button>
+  </div>
+</div>
+
+<div class="tabla-container">
+  <input type="text" placeholder="🔍 Buscar por DNI o Nombre..." class="buscador" [(ngModel)]="filtroTexto">
+  
+  <table class="tabla-admin">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Cliente</th>
+        <th>DNI/Doc</th>
+        <th>Habitación</th>
+        <th>Ingreso</th>
+        <th>Salida</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let res of reservasFiltradas">
+        <td>#{{ res.idReserva }}</td>
+        
+        <td>{{ res.cliente?.apellido }} {{ res.cliente?.nombre }}</td> 
+        <td>{{ res.cliente?.numeroDocumento }}</td> 
+        <td>{{ res.habitacion?.numeroHabitacion }}</td>
+        
+        <td>{{ res.fechaEntrada }}</td>
+        <td>{{ res.fechaSalida }}</td>
+        
+        <td>
+          <span class="badge-estado">{{ res.estado }}</span>
+        </td>
+        
+        <td class="acciones-celda">
+          <button class="btn-accion btn-editar" title="Editar" (click)="abrirModalEditar(res)">✏️</button>
+          
+          <button class="btn-accion btn-aprobar" (click)="confirmarReserva(res)" title="Confirmar">✅</button>
+          
+          <button class="btn-accion btn-eliminar" (click)="borrarReserva(res.idReserva)" title="Eliminar">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal-overlay" *ngIf="mostrarModalEdicion">
+  <div class="modal-content">
+    <h3>✏️ Modificar Fechas</h3>
+    <p><strong>Cliente:</strong> {{ reservaEditando.cliente?.nombre }} {{ reservaEditando.cliente?.apellido }}</p>
+    <p><strong>Habitación:</strong> {{ reservaEditando.habitacion?.numeroHabitacion }}</p>
+
+    <div class="form-group">
+      <label>Nueva Fecha de Entrada:</label>
+      <input type="date" [(ngModel)]="reservaEditando.fechaEntrada" class="form-control" [min]="fechaHoy">
+    </div>
+
+    <div class="form-group">
+      <label>Nueva Fecha de Salida:</label>
+      <input type="date" [(ngModel)]="reservaEditando.fechaSalida" class="form-control" [min]="reservaEditando.fechaEntrada || fechaHoy">
+    </div>
+
+    <div class="modal-acciones">
+      <button class="btn-cancelar" (click)="cerrarModal()">❌ Cancelar</button>
+      <button class="btn-guardar" (click)="guardarEdicion()">💾 Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="mostrarModalNuevo">
+  <div class="modal-content modal-grande">
+    <h3>➕ Registrar Nueva Reserva</h3>
+    
+    <form (ngSubmit)="guardarNuevaReserva()">
+      
+      <fieldset>
+        <legend>👤 Datos del Cliente</legend>
+        <div class="row-form">
+          <div class="form-group-half">
+            <label>Nombre:</label>
+            <input type="text" [(ngModel)]="nuevaReserva.nombre" name="nombre" class="form-control" required>
+          </div>
+          <div class="form-group-half">
+            <label>Apellido:</label>
+            <input type="text" [(ngModel)]="nuevaReserva.apellido" name="apellido" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="row-form">
+          <div class="form-group-half">
+            <label>Tipo Doc:</label>
+            <select [(ngModel)]="nuevaReserva.tipoDocumento" name="tipoDocumento" class="form-control">
+              <option value="DNI">DNI</option>
+              <option value="CE">Carnet de Extranjería</option>
+              <option value="PASAPORTE">Pasaporte</option>
+            </select>
+          </div>
+          <div class="form-group-half">
+            <label>N° Documento:</label>
+            <input type="text" [(ngModel)]="nuevaReserva.numeroDocumento" name="numeroDocumento" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="row-form">
+          <div class="form-group-half">
+            <label>Correo:</label>
+            <input type="email" [(ngModel)]="nuevaReserva.correo" name="correo" class="form-control" required>
+          </div>
+          <div class="form-group-half">
+            <label>Teléfono:</label>
+            <input type="text" [(ngModel)]="nuevaReserva.telefono" name="telefono" class="form-control">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>🏨 Habitación y Fechas</legend>
+        <div class="row-form">
+          <div class="form-group-full">
+            <label>Seleccionar Habitación:</label>
+            <select [(ngModel)]="nuevaReserva.idHabitacion" name="idHabitacion" class="form-control" required>
+              <option value="" disabled selected>-- Elige una Habitación --</option>
+              <option *ngFor="let hab of habitaciones" [value]="hab.idHabitacion">
+                Hab. {{ hab.numeroHabitacion }} - {{ hab.tipoHabitacion }} (S/ {{ hab.precioPorNoche }})
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row-form">
+          <div class="form-group-half">
+            <label>Fecha Entrada:</label>
+            <input type="date" [(ngModel)]="nuevaReserva.fechaEntrada" name="fechaEntrada" class="form-control" [min]="fechaHoy" required>
+          </div>
+          <div class="form-group-half">
+            <label>Fecha Salida:</label>
+            <input type="date" [(ngModel)]="nuevaReserva.fechaSalida" name="fechaSalida" class="form-control" [min]="nuevaReserva.fechaEntrada" required>
+          </div>
+        </div>
+
+        <div class="row-form">
+          <div class="form-group-half">
+            <label>Adultos:</label>
+            <input type="number" [(ngModel)]="nuevaReserva.numAdultos" name="numAdultos" class="form-control" min="1" required>
+          </div>
+          <div class="form-group-half">
+            <label>Niños:</label>
+            <input type="number" [(ngModel)]="nuevaReserva.numNinos" name="numNinos" class="form-control" min="0">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>🧾 Comprobante</legend>
+        <div class="row-form">
+          <div class="form-group-half">
+            <label>Tipo:</label>
+            <select [(ngModel)]="nuevaReserva.tipoComprobante" name="tipoComprobante" class="form-control">
+              <option value="BOLETA">Boleta</option>
+              <option value="FACTURA">Factura</option>
+            </select>
+          </div>
+          <div class="form-group-half" *ngIf="nuevaReserva.tipoComprobante === 'FACTURA'">
+            <label>RUC Empresa:</label>
+            <input type="text" [(ngModel)]="nuevaReserva.rucEmpresa" name="rucEmpresa" class="form-control" placeholder="Ingresa el RUC">
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="modal-acciones">
+        <button type="button" class="btn-cancelar" (click)="cerrarModalNuevo()">❌ Cancelar</button>
+        <button type="submit" class="btn-guardar">💾 Registrar Reserva</button>
+      </div>
+
+    </form>
+  </div>
+</div>

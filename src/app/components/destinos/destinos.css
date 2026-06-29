@@ -1,0 +1,85 @@
+.destinos-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f9;
+  padding: 60px 20px;
+}
+
+.destinos-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.destinos-header h2 {
+  color: #0f529f;
+  font-size: 2.3rem;
+  margin-bottom: 10px;
+}
+
+.destinos-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.destinos-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.destino-card {
+  background: white;
+  border-radius: 12px;
+  width: 360px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.destino-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+.card-image {
+  position: relative;
+  height: 220px;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: #ffb703;
+  color: #111;
+  padding: 6px 12px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: 20px;
+}
+
+.card-body {
+  padding: 25px;
+}
+
+.card-body h3 {
+  color: #0f529f;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.card-body p {
+  color: #555;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin: 0;
+  height: 90px; /* Mantiene la misma altura en todas las tarjetas para que se vean alineadas */
+}

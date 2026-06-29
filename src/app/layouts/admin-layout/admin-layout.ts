@@ -1,0 +1,24 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router'; // 👈 Herramientas de rutas
+import { AuthService } from '../../services/auth.service'; // 👈 Tu servicio para cerrar sesión
+
+@Component({
+  selector: 'app-admin-layout',
+  standalone: true,
+  imports: [CommonModule, RouterModule], 
+  templateUrl: './admin-layout.html', // (Ojo: verifica si tu archivo termina en .html o .component.html)
+  styleUrls: ['./admin-layout.css']   // (Ojo: igual aquí con el .css)
+})
+export class AdminLayout {
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  cerrarSesionAdmin() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+}

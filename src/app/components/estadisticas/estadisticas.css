@@ -1,0 +1,187 @@
+/* =========================================
+   1. CABECERA Y TARJETAS SUPERIORES
+   ========================================= */
+.header-contenido {
+  margin-bottom: 30px;
+}
+
+.subtitulo {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  margin-top: 5px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  border-top: 4px solid #2c3e50;
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.icon-verde { border-color: #27ae60; }
+.icon-azul { border-top-color: #3498db; }
+.icon-naranja { border-top-color: #f39c12; }
+
+.stat-info h3 {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin: 0 0 5px 0;
+}
+
+.stat-info p {
+  color: #7f8c8d;
+  margin: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.stat-progress-container {
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 8px;
+  background-color: #ecf0f1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #27ae60;
+  border-radius: 4px;
+  transition: width 1s ease-in-out;
+}
+
+/* =========================================
+   2. PANEL ANUAL Y TABLA TIPO EXCEL
+   ========================================= */
+.panel-anual {
+  margin-top: 40px;
+  background: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.header-anual {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+}
+
+.header-anual h3 {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.meta-label {
+  background-color: #f1f2f6;
+  padding: 8px 15px;
+  border-radius: 20px;
+  color: #34495e;
+  font-size: 0.9rem;
+}
+
+/* 🔥 LA MAGIA DE LA CUADRÍCULA ESTILO EXCEL 🔥 */
+.tabla-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tabla-admin {
+  width: 100%;
+  border-collapse: collapse; /* Esto junta las líneas perfectamente */
+  font-size: 0.95rem;
+}
+
+.tabla-admin th, 
+.tabla-admin td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #dcdde1; /* Estas son las "linitas" divisorias */
+  vertical-align: middle;
+}
+
+.tabla-admin th {
+  background-color: #f8f9fa; /* Fondo gris claro para la cabecera */
+  color: #2f3640;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+/* Efecto visual al pasar el mouse por encima de una fila */
+.tabla-admin tbody tr:hover {
+  background-color: #f1f2f6; 
+}
+
+/* Gráfico de Barras CSS */
+.barra-mes-bg {
+  width: 100%;
+  height: 12px;
+  background-color: #ecf0f1;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.barra-mes-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 1s ease-in-out;
+}
+
+.bg-verde { background-color: #2ecc71; }
+.bg-rojo { background-color: #e74c3c; }
+.bg-gris { background-color: #bdc3c7; }
+
+/* Etiquetas (Badges) mejoradas con bordes */
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+  width: 100px;
+}
+
+.badge-verde { background-color: #e8f8f5; color: #27ae60; border: 1px solid #2ecc71;}
+.badge-rojo { background-color: #fdedec; color: #c0392b; border: 1px solid #e74c3c;}
+.badge-gris { background-color: #f2f4f4; color: #7f8c8d; border: 1px solid #bdc3c7;}

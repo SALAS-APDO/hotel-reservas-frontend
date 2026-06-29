@@ -1,0 +1,308 @@
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 70px); /* Ajusta según el alto de tu barra de navegación */
+  background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
+              url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1400') no-repeat center center/cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+/* Texto Central */
+.hero-text {
+  text-align: center;
+  color: white;
+  margin-bottom: 80px;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.hero-text p {
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.hero-text h1 {
+  font-size: 5rem;
+  margin: 0;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+/* Contenedor de la Barra de Búsqueda (Actualizado al Azul Institucional) */
+.search-bar-container {
+  position: absolute;
+  bottom: 40px;
+  width: 90%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.search-title {
+  background-color: #0f529f; /* ✨ Corregido: Ahora combina con las tarjetas */
+  color: white;
+  padding: 8px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+  letter-spacing: 0.5px;
+}
+
+.search-bar {
+  background-color: #0f529f; /* ✨ Corregido: Azul premium unificado */
+  width: 100%;
+  padding: 18px 20px;
+  border-radius: 0 8px 8px 8px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  flex-wrap: wrap;
+}
+
+/* Grupos de inputs individuales */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 140px;
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.input-group:focus-within {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.input-group label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.5px;
+}
+
+.search-input, .search-select, .qty-input {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  outline: none;
+  width: 100%;
+}
+
+/* Estilos específicos para los campos */
+.search-select option {
+  color: #333; /* Opciones del dropdown legibles en negro */
+  background-color: white;
+}
+
+.input-group.drop-group {
+  padding: 17px 12px; /* Alineación perfecta para el select sin etiqueta */
+}
+
+.qty-input {
+  text-align: center;
+}
+
+/* Botón Buscar (Actualizado al Dorado Premium Inti) */
+.btn-group {
+  flex: 1.2;
+  min-width: 180px;
+}
+
+.btn-buscar {
+  width: 100%;
+  background-color: #ffb703; /* ✨ Corregido: Mismo dorado de las tarjetas */
+  color: #1e293b;
+  border: none;
+  padding: 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(255, 183, 3, 0.2);
+}
+
+.btn-buscar:hover {
+  background-color: #e5a300;
+  box-shadow: 0 6px 15px rgba(255, 183, 3, 0.35);
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 992px) {
+  .hero-container { height: auto; padding: 100px 20px; }
+  .search-bar-container { position: relative; bottom: 0; width: 100%; margin-top: 30px; }
+  .search-bar { flex-direction: column; gap: 12px; }
+  .input-group, .btn-group { width: 100%; }
+  .hero-text h1 { font-size: 3.5rem; }
+}
+
+/* --- SECCIÓN DE RESULTADOS --- */
+.resultados-seccion {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.resultados-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.resultados-header h2 {
+  font-size: 28px;
+  color: #0f529f; /* Azul institucional Inti */
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.resultados-header p {
+  color: #64748b;
+  font-size: 15px;
+}
+
+/* Grid de tarjetas */
+.habitaciones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+/* Tarjeta elegante */
+.habitacion-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e2e8f0;
+}
+
+.habitacion-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(15, 82, 159, 0.15);
+}
+
+/* Contenedor de Imagen y Badge */
+.habitacion-img-box {
+  position: relative;
+  height: 230px;
+  width: 100%;
+}
+
+.habitacion-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.precio-badge {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: #0f529f;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.precio-badge span {
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+/* Contenido e información */
+.habitacion-detalles {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.habitacion-detalles h3 {
+  font-size: 20px;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.habitacion-detalles .descripcion {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+}
+
+/* Iconos o características */
+.caracteristicas-icons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 25px;
+  border-top: 1px dashed #e2e8f0;
+  padding-top: 15px;
+}
+
+.caracteristicas-icons span {
+  font-size: 13px;
+  color: #475569;
+  font-weight: 500;
+}
+
+/* Botón Premium Reservar */
+.btn-seleccionar-hab {
+  background: #ffb703; /* Amarillo/Dorado Inti corporativo */
+  color: #1e293b;
+  border: none;
+  padding: 14px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  margin-top: auto; 
+  box-shadow: 0 4px 12px rgba(255, 183, 3, 0.2);
+}
+
+.btn-seleccionar-hab:hover {
+  background: #e5a300;
+  box-shadow: 0 6px 15px rgba(255, 183, 3, 0.35);
+}
+
+.btn-seleccionar-hab:active {
+  transform: scale(0.98);
+}

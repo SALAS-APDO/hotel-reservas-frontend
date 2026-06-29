@@ -1,0 +1,129 @@
+.habitaciones-container {
+  padding: 20px;
+  animation: fadeIn 0.4s ease-in-out; /* Una animación suave al entrar */
+}
+
+.header-contenido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #ecf0f1;
+  padding-bottom: 10px;
+}
+
+.leyenda {
+  display: flex;
+  gap: 15px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* CUADRÍCULA (GRID) - Acomoda las tarjetas automáticamente */
+.grid-habitaciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* ESTILO BASE DE LA TARJETA */
+.tarjeta-habitacion {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-top: 6px solid gray; 
+}
+
+.tarjeta-habitacion:hover {
+  transform: translateY(-5px); /* Se levanta un poquito al pasar el mouse */
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+/* 🟩 COLOR DINÁMICO: LIBRE */
+.estado-libre {
+  border-top-color: #2ecc71; 
+}
+.estado-libre .tarjeta-footer {
+  background-color: #e8f8f5;
+  color: #27ae60;
+}
+
+/* 🟥 COLOR DINÁMICO: OCUPADA */
+.estado-ocupada {
+  border-top-color: #e74c3c; 
+}
+.estado-ocupada .tarjeta-footer {
+  background-color: #fdedec;
+  color: #c0392b;
+}
+
+/* 🟨 COLOR DINÁMICO: LIMPIEZA */
+.estado-limpieza {
+  border-top-color: #f1c40f; 
+}
+.estado-limpieza .tarjeta-footer {
+  background-color: #fcf3cf;
+  color: #f39c12;
+}
+
+/* TEXTOS DENTRO DE LA TARJETA */
+.tarjeta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 15px 5px;
+}
+
+.tarjeta-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #2c3e50;
+}
+
+.tarjeta-body {
+  padding: 10px 15px;
+  flex-grow: 1;
+}
+
+.tarjeta-body p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.tarjeta-footer {
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🎛️ ESTILOS PARA EL SELECTOR DE ESTADOS */
+.select-estado {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-align: center;
+  color: inherit; /* Hereda el color del footer (verde, rojo o amarillo) */
+  cursor: pointer;
+  outline: none;
+  appearance: none; /* Quita la flecha fea por defecto en algunos navegadores */
+  text-align-last: center;
+}
+
+.select-estado option {
+  color: #2c3e50;
+  font-weight: bold;
+}
