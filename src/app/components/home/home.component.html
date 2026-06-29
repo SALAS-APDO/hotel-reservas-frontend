@@ -6,26 +6,28 @@
 
   <div class="search-bar-container">
     <div class="search-title">¡Elige tu próximo destino!</div>
-    
+
     <div class="search-bar">
       <div class="input-group">
         <label>Hotel / Destino</label>
         <select class="search-select" [(ngModel)]="busqueda.hotelId" name="hotelId">
           <option value="" disabled selected>Seleccionar Hotel</option>
           @for (hotel of hoteles; track $index) {
-            <option [value]="hotel.idHotel">{{ hotel.nombre }}</option>
+          <option [value]="hotel.idHotel">{{ hotel.nombre }}</option>
           }
         </select>
       </div>
 
       <div class="input-group">
         <label>Llegada</label>
-        <input type="date" class="search-input" [(ngModel)]="busqueda.fechaLlegada" name="fechaLlegada" [min]="fechaMinima">
+        <input type="date" class="search-input" [(ngModel)]="busqueda.fechaLlegada" name="fechaLlegada"
+          [min]="fechaMinima">
       </div>
 
       <div class="input-group">
         <label>Salida</label>
-        <input type="date" class="search-input" [(ngModel)]="busqueda.fechaSalida" name="fechaSalida" [min]="busqueda.fechaLlegada">
+        <input type="date" class="search-input" [(ngModel)]="busqueda.fechaSalida" name="fechaSalida"
+          [min]="busqueda.fechaLlegada">
       </div>
 
       <div class="input-group">
@@ -46,56 +48,73 @@
 </div>
 
 @if (haBuscado) {
-  <div class="resultados-seccion">
-    <div class="resultados-header">
-      <h2>Habitaciones Disponibles en {{ nombreHotelSeleccionado || 'nuestro hotel' }}</h2>
-      <p>Selecciona la opción perfecta para tu estadía en {{ nombreHotelSeleccionado || 'nuestro hotel' }}.</p>
-    </div>
+<div class="resultados-seccion">
+  <div class="resultados-header">
+    <h2>Habitaciones Disponibles en {{ nombreHotelSeleccionado || 'nuestro hotel' }}</h2>
+    <p>Selecciona la opción perfecta para tu estadía en {{ nombreHotelSeleccionado || 'nuestro hotel' }}.</p>
+  </div>
 
-    @if (habitacionesDisponibles.length === 0) {
-      <div style="text-align: center; color: #64748b; font-size: 1.1rem; margin-top: 20px; padding: 20px;">
-        ⚠️ No se encontraron habitaciones disponibles para los criterios seleccionados o capacidad requerida.
-      </div>
-    } @else {
-      <div class="habitaciones-grid">
-        @for (hab of habitacionesDisponibles; track $index) {
-          <div class="habitacion-card">
-            <div class="habitacion-img-box">
-              @if (hab.tipoHabitacion?.toLowerCase().includes('suite')) {
-                <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=600" alt="Suite">
-              } @else if (hab.tipoHabitacion?.toLowerCase().includes('matrimonial')) {
-                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=600" alt="Matrimonial">
-              } @else if (hab.tipoHabitacion?.toLowerCase().includes('familiar')) {
-                <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=600" alt="Familiar">
-              } @else {
-                <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=600" alt="Habitación">
-              }
-              <div class="precio-badge">S/. {{ hab.precioPorNoche }} <span>/ noche</span></div>
-            </div>
-            
-            <div class="habitacion-detalles">
-              <h3>{{ hab.tipoHabitacion }} (N° {{ hab.numeroHabitacion }})</h3>
-              
-              <p class="capacidad-info" style="color: #0284c7; font-weight: bold; font-size: 0.9rem; margin-bottom: 5px;">
-                👥 Capacidad Máxima: {{ hab.capacidadMaxima }} personas
-              </p>
-
-              <p class="descripcion">
-                Disfruta de una estadía premium en nuestra {{ hab.tipoHabitacion }}. Diseñada perfectamente para albergar hasta {{ hab.capacidadMaxima }} huéspedes con total comodidad.
-              </p>
-              
-              <div class="caracteristicas-icons" style="margin: 15px 0; font-size: 0.85rem; color: #64748b; display: flex; gap: 10px; flex-wrap: wrap;">
-                <span>📺 Smart TV</span>
-                <span>🛁 Baño Privado</span>
-                <span>🔒 Caja Fuerte</span>
-                <span>🍹 Frigobar</span>
-              </div>
-
-              <button class="btn-seleccionar-hab" (click)="irADetalle(hab)">Reservar Ahora</button>
-            </div>
-          </div>
+  @if (habitacionesDisponibles.length === 0) {
+  <div
+    style="text-align: center; color: #64748b; font-size: 1.1rem; margin-top: 20px; padding: 20px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+    <app-icon name="alert" [size]="22" style="color: #eab308;"></app-icon>
+    No se encontraron habitaciones disponibles para los criterios seleccionados o capacidad requerida.
+  </div>
+  } @else {
+  <div class="habitaciones-grid">
+    @for (hab of habitacionesDisponibles; track $index) {
+    <div class="habitacion-card">
+      <div class="habitacion-img-box">
+        @if (hab.tipoHabitacion?.toLowerCase().includes('suite')) {
+        <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=600" alt="Suite">
+        } @else if (hab.tipoHabitacion?.toLowerCase().includes('matrimonial')) {
+        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=600" alt="Matrimonial">
+        } @else if (hab.tipoHabitacion?.toLowerCase().includes('familiar')) {
+        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=600" alt="Familiar">
+        } @else {
+        <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=600" alt="Habitación">
         }
+        <div class="precio-badge">S/. {{ hab.precioPorNoche }} <span>/ noche</span></div>
       </div>
+
+      <div class="habitacion-detalles">
+        <h3>{{ hab.tipoHabitacion }} (N° {{ hab.numeroHabitacion }})</h3>
+
+        <p class="capacidad-info"
+          style="color: #0284c7; font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+          <app-icon name="users" [size]="18" style="color: #0284c7;"></app-icon>
+          Capacidad Máxima: {{ hab.capacidadMaxima }} personas
+        </p>
+
+        <p class="descripcion">
+          Disfruta de una estadía premium en nuestra {{ hab.tipoHabitacion }}. Diseñada perfectamente para albergar
+          hasta {{ hab.capacidadMaxima }} huéspedes con total comodidad.
+        </p>
+
+        <div class="caracteristicas-icons-modern">
+          <div class="carac-item">
+            <app-icon name="tv" [size]="16"></app-icon>
+            <span>Smart TV</span>
+          </div>
+          <div class="carac-item">
+            <app-icon name="bath" [size]="16"></app-icon>
+            <span>Baño Privado</span>
+          </div>
+          <div class="carac-item">
+            <app-icon name="lock" [size]="16"></app-icon>
+            <span>Caja Fuerte</span>
+          </div>
+          <div class="carac-item">
+            <app-icon name="drink" [size]="16"></app-icon>
+            <span>Frigobar</span>
+          </div>
+        </div>
+
+        <button class="btn-seleccionar-hab" (click)="irADetalle(hab)">Reservar Ahora</button>
+      </div>
+    </div>
     }
   </div>
+  }
+</div>
 }

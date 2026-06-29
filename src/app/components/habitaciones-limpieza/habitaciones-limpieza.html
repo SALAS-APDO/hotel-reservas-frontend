@@ -1,11 +1,13 @@
 <div class="habitaciones-container">
   
-  <div class="header-contenido">
-    <h2>🛏️ Estado de Habitaciones</h2>
+  <div class="header-contenido" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+    <h2 style="display: flex; align-items: center; gap: 8px; margin: 0;">
+      <app-icon name="bed" [size]="24" style="color: #0f529f;"></app-icon> Estado de Habitaciones
+    </h2>
     <div class="leyenda">
-      <span class="badge-leyenda">🟩 Disponible</span>
-      <span class="badge-leyenda">🟥 Ocupada</span>
-      <span class="badge-leyenda">🟨 Limpieza</span>
+      <span class="badge-leyenda"><span class="dot bg-libre"></span> Disponible</span>
+      <span class="badge-leyenda"><span class="dot bg-ocupada"></span> Ocupada</span>
+      <span class="badge-leyenda"><span class="dot bg-limpieza"></span> Limpieza</span>
     </div>
   </div>
 
@@ -22,16 +24,20 @@
       <div class="tarjeta-header">
         <h3>{{ hab.numeroHabitacion }}</h3>
         <span class="icono-estado" [ngSwitch]="hab.estado">
-          <span *ngSwitchCase="'DISPONIBLE'">✅</span>
-          <span *ngSwitchCase="'OCUPADA'">🔒</span>
-          <span *ngSwitchCase="'LIMPIEZA'">🧹</span>
-          <span *ngSwitchDefault>❓</span>
+          <app-icon *ngSwitchCase="'DISPONIBLE'" name="check" [size]="18" style="color: #10b981;"></app-icon>
+          <app-icon *ngSwitchCase="'OCUPADA'" name="lock" [size]="18" style="color: #ef4444;"></app-icon>
+          <app-icon *ngSwitchCase="'LIMPIEZA'" name="broom" [size]="18" style="color: #eab308;"></app-icon>
+          <app-icon *ngSwitchDefault name="help" [size]="18" style="color: #64748b;"></app-icon>
         </span>
       </div>
       
       <div class="tarjeta-body">
         <p><strong>Tipo:</strong> {{ hab.tipoHabitacion }}</p>
-        <p><strong>Capacidad:</strong> 👤 x{{ hab.capacidadMaxima }}</p>
+        <p style="display: flex; align-items: center; gap: 4px; margin: 8px 0;">
+          <strong>Capacidad:</strong>
+          <app-icon name="users" [size]="14" style="color: #64748b;"></app-icon>
+          x{{ hab.capacidadMaxima }}
+        </p>
         <p><strong>Precio:</strong> S/ {{ hab.precioPorNoche }}</p>
       </div>
 

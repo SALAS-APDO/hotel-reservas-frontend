@@ -88,9 +88,28 @@
   transform: translateY(-5px);
 }
 
-.valor-card .icon {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
+.icon-wrapper {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  color: #0284c7;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.valor-card:hover .icon-wrapper {
+  transform: scale(1.08);
+  box-shadow: 0 8px 16px -4px rgba(2, 132, 199, 0.25);
+  background: linear-gradient(135deg, #bae6fd 0%, #0284c7 100%);
+  color: white;
+}
+
+.valor-icon {
+  transition: color 0.3s ease;
 }
 
 .valor-card h3 {

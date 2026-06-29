@@ -3,11 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HotelService } from '../../services/hotel.service';
 import { Router } from '@angular/router';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, IconComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'] // Asegúrate de tener enlazado tu CSS aquí
 })
