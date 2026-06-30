@@ -86,10 +86,50 @@
 
 .badge { padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; background-color: #fef3c7; color: #d97706; }
 
-.acciones button { border: none; padding: 6px 10px; margin-right: 5px; border-radius: 4px; cursor: pointer; color: white; }
-.btn-editar { background-color: #0ea5e9; }
-.btn-confirmar { background-color: #10b981; }
-.btn-eliminar { background-color: #ef4444; }
+/* Botones de acción en la tabla */
+.acciones-celda {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-accion {
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.btn-editar {
+  background-color: #0ea5e9;
+}
+.btn-editar:hover {
+  background-color: #0284c7;
+  transform: translateY(-2px);
+}
+
+.btn-aprobar {
+  background-color: #10b981;
+}
+.btn-aprobar:hover {
+  background-color: #059669;
+  transform: translateY(-2px);
+}
+
+.btn-eliminar {
+  background-color: #ef4444;
+}
+.btn-eliminar:hover {
+  background-color: #dc2626;
+  transform: translateY(-2px);
+}
 
 /* 🪟 ESTILOS PARA EL MODAL DE EDICIÓN */
 .modal-overlay {

@@ -33,13 +33,29 @@
 }
 
 .stat-icon {
-  font-size: 2.5rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 15px;
 }
 
-.icon-verde { border-color: #27ae60; }
-.icon-azul { border-top-color: #3498db; }
-.icon-naranja { border-top-color: #f39c12; }
+.icon-verde {
+  background-color: #e8f8f5;
+  color: #27ae60;
+}
+
+.icon-azul {
+  background-color: #ebf5fb;
+  color: #3498db;
+}
+
+.icon-naranja {
+  background-color: #fef5e7;
+  color: #f39c12;
+}
 
 .stat-info h3 {
   font-size: 2.2rem;
@@ -185,3 +201,22 @@
 .badge-verde { background-color: #e8f8f5; color: #27ae60; border: 1px solid #2ecc71;}
 .badge-rojo { background-color: #fdedec; color: #c0392b; border: 1px solid #e74c3c;}
 .badge-gris { background-color: #f2f4f4; color: #7f8c8d; border: 1px solid #bdc3c7;}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.badge-verde .status-dot {
+  background-color: #2ecc71;
+}
+
+.badge-rojo .status-dot {
+  background-color: #e74c3c;
+}
+
+.badge-gris .status-dot {
+  background-color: #bdc3c7;
+}

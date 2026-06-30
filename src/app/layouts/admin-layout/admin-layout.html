@@ -1,26 +1,40 @@
 <div class="admin-layout">
   <aside class="sidebar">
-    <div class="sidebar-header">
-      <h2>🏨 Panel Inti</h2>
-      <p>Administrador</p>
+    <div class="sidebar-header" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
+      <h2 style="display: flex; align-items: center; gap: 8px; justify-content: center;">
+        <app-icon name="hotel" [size]="24" style="color: #38bdf8;"></app-icon>
+        Panel Inti
+      </h2>
+      <p style="margin: 0;">Administrador</p>
     </div>
     
     <ul class="sidebar-menu">
       <li routerLinkActive="active">
-        <a routerLink="/admin-dashboard/reservas">📊 Gestión de Reservas</a>
+        <a routerLink="/admin-dashboard/reservas" style="display: flex; align-items: center; gap: 10px;">
+          <app-icon name="file" [size]="18"></app-icon> Gestión de Reservas
+        </a>
       </li>
       <li routerLinkActive="active">
-        <a routerLink="/admin-dashboard/habitaciones">🛏️ Habitaciones y Limpieza</a>
+        <a routerLink="/admin-dashboard/habitaciones" style="display: flex; align-items: center; gap: 10px;">
+          <app-icon name="bed" [size]="18"></app-icon> Habitaciones y Limpieza
+        </a>
       </li>
       <li routerLinkActive="active">
-        <a routerLink="/admin-dashboard/clientes">👥 Clientes</a>
+        <a routerLink="/admin-dashboard/clientes" style="display: flex; align-items: center; gap: 10px;">
+          <app-icon name="users" [size]="18"></app-icon> Clientes
+        </a>
+      </li>
       <li routerLinkActive="active">
-        <a routerLink="/admin-dashboard/estadisticas">📈 Estadísticas</a>
+        <a routerLink="/admin-dashboard/estadisticas" style="display: flex; align-items: center; gap: 10px;">
+          <app-icon name="chart" [size]="18"></app-icon> Estadísticas
+        </a>
       </li>
     </ul>
 
     <div class="sidebar-footer">
-      <button class="btn-logout-lateral" (click)="cerrarSesionAdmin()">🚪 Cerrar Sesión</button>
+      <button class="btn-logout-lateral" (click)="cerrarSesionAdmin()" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+        <app-icon name="logout" [size]="18"></app-icon> Cerrar Sesión
+      </button>
     </div>
   </aside>
 

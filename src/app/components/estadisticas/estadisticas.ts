@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HotelService } from '../../services/hotel.service';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-estadisticas',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent],
   templateUrl: './estadisticas.html',
   styleUrls: ['./estadisticas.css']
 })

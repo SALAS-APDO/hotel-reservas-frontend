@@ -93,15 +93,35 @@
 
 /* 🛠️ CORRECCIÓN DE COLORES PARA LOS ENLACES DEL MENÚ */
 .sidebar-menu a {
-  color: #ffffff !important; /* Forzamos las letras a ser blancas */
-  text-decoration: none; /* Le quitamos cualquier línea fea por debajo */
-  display: block; /* Para que todo el ancho sea cliqueable, no solo la letra */
+  color: #cbd5e1 !important;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  transition: color 0.2s ease;
+}
+
+.sidebar-menu a app-icon {
+  color: #94a3b8;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 /* 🎨 EFECTO CUANDO PASAS EL MOUSE O ESTÁS EN ESA PANTALLA */
 .sidebar-menu li.active, 
 .sidebar-menu li:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Un fondo blanquito sutil */
-  border-left: 4px solid #3498db; /* Una rayita azul elegante a la izquierda */
+  background-color: #334155;
+  border-left: 4px solid #38bdf8;
   border-radius: 4px;
+}
+
+.sidebar-menu li:hover a, 
+.sidebar-menu li.active a {
+  color: #ffffff !important;
+}
+
+.sidebar-menu li:hover a app-icon, 
+.sidebar-menu li.active a app-icon {
+  color: #38bdf8;
+  transform: scale(1.05);
 }

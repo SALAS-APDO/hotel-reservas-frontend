@@ -265,19 +265,37 @@
 }
 
 /* Iconos o características */
-.caracteristicas-icons {
+.caracteristicas-icons-modern {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 25px;
   border-top: 1px dashed #e2e8f0;
   padding-top: 15px;
 }
 
-.caracteristicas-icons span {
+.carac-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 13px;
   color: #475569;
   font-weight: 500;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+}
+
+.carac-item app-icon {
+  color: #0f529f;
+  transition: color 0.2s ease;
+}
+
+.carac-item:hover {
+  color: #0f529f;
+}
+
+.carac-item:hover app-icon {
+  color: #ffb703;
 }
 
 /* Botón Premium Reservar */

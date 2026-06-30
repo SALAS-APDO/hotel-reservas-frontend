@@ -28,7 +28,9 @@
         <td>{{ cli.correo }}</td>
         <td>{{ cli.telefono }}</td>
         <td class="acciones-celda">
-          <button class="btn-accion btn-editar" title="Corregir Datos" (click)="abrirModalEditar(cli)">✏️</button>
+          <button class="btn-accion btn-editar" title="Corregir Datos" (click)="abrirModalEditar(cli)">
+            <app-icon name="edit" [size]="16"></app-icon>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -37,7 +39,9 @@
 
 <div class="modal-overlay" *ngIf="mostrarModalEdicion">
   <div class="modal-content">
-    <h3>✏️ Modificar Datos del Cliente</h3>
+    <h3 style="display: flex; align-items: center; gap: 8px;">
+      <app-icon name="edit" [size]="20" style="color: #0f529f;"></app-icon> Modificar Datos del Cliente
+    </h3>
     <form (ngSubmit)="guardarEdicion()">
       <div class="form-group">
         <label>Nombres:</label>
@@ -56,8 +60,13 @@
         <input type="text" [(ngModel)]="clienteEditando.telefono" name="telefono" class="form-control">
       </div>
       <div class="modal-acciones">
-        <button type="button" class="btn-cancelar" (click)="cerrarModal()">❌ Cancelar</button>
-        <button type="submit" class="btn-guardar">💾 Guardar</button>
+        <button type="button" class="btn-cancelar" (click)="cerrarModal()"
+          style="display: inline-flex; align-items: center; gap: 6px;">
+          <app-icon name="close" [size]="16"></app-icon> Cancelar
+        </button>
+        <button type="submit" class="btn-guardar" style="display: inline-flex; align-items: center; gap: 6px;">
+          <app-icon name="check" [size]="16"></app-icon> Guardar
+        </button>
       </div>
     </form>
   </div>

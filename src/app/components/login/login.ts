@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; 
-import { Router, RouterLink } from '@angular/router'; // 👈 1. Agregamos RouterLink aquí arriba
-import { AuthService } from '../../services/auth.service'; 
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { LoginRequestDTO } from '../../models/login-request.dto';
+import { IconComponent } from '../icon/icon.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink], // 👈 2. Metemos RouterLink aquí para que funcione el enlace del HTML
+  imports: [FormsModule, RouterLink, IconComponent],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
-  
+
   credenciales: LoginRequestDTO = {
     correo: '',
     contrasena: ''
@@ -21,7 +22,7 @@ export class Login {
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   iniciarSesion(): void {
     if (!this.credenciales.correo || !this.credenciales.contrasena) {
@@ -32,10 +33,10 @@ export class Login {
     this.authService.login(this.credenciales).subscribe({
       next: (respuesta) => {
         if (respuesta === 'Login exitoso') {
-          this.authService.setSession('ADMIN'); 
+          this.authService.setSession('ADMIN');
           alert('¡Inicio de sesión correcto! Bienvenido.');
-          
-          window.location.href = '/admin-dashboard'; 
+
+          window.location.href = '/admin-dashboard';
         }
       },
       error: (err) => {
