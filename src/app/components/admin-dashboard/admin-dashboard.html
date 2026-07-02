@@ -19,6 +19,7 @@
         <th>ID</th>
         <th>Cliente</th>
         <th>DNI/Doc</th>
+        <th>Sede</th>
         <th>Habitación</th>
         <th>Ingreso</th>
         <th>Salida</th>
@@ -28,11 +29,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let res of reservasFiltradas">
-        <td>#{{ res.idReserva }}</td>
+        <td>#{{ res.id }}</td>
         
-        <td>{{ res.cliente?.apellido }} {{ res.cliente?.nombre }}</td> 
-        <td>{{ res.cliente?.numeroDocumento }}</td> 
-        <td>{{ res.habitacion?.numeroHabitacion }}</td>
+        <td>{{ res.clienteNombre }}</td> 
+        <td>{{ res.dni }}</td> 
+        <td><strong>{{ res.nombreSede }}</strong></td>
+        <td>{{ res.numeroHabitacion }}</td>
         
         <td>{{ res.fechaEntrada }}</td>
         <td>{{ res.fechaSalida }}</td>
@@ -50,7 +52,7 @@
             <app-icon name="check" [size]="16"></app-icon>
           </button>
           
-          <button class="btn-accion btn-eliminar" (click)="borrarReserva(res.idReserva)" title="Eliminar">
+          <button class="btn-accion btn-eliminar" (click)="borrarReserva(res.id)" title="Eliminar">
             <app-icon name="trash" [size]="16"></app-icon>
           </button>
         </td>
@@ -64,8 +66,9 @@
     <h3 style="display: flex; align-items: center; gap: 8px;">
       <app-icon name="edit" [size]="20" style="color: #0f529f;"></app-icon> Modificar Fechas
     </h3>
-    <p><strong>Cliente:</strong> {{ reservaEditando.cliente?.nombre }} {{ reservaEditando.cliente?.apellido }}</p>
-    <p><strong>Habitación:</strong> {{ reservaEditando.habitacion?.numeroHabitacion }}</p>
+    <p><strong>Cliente:</strong> {{ reservaEditando.clienteNombre }}</p>
+    <p><strong>Sede:</strong> {{ reservaEditando.nombreSede }}</p>
+    <p><strong>Habitación:</strong> {{ reservaEditando.numeroHabitacion }}</p>
 
     <div class="form-group">
       <label>Nueva Fecha de Entrada:</label>

@@ -1,4 +1,11 @@
 <div class="login-container">
+
+  <div class="toast-notification" *ngIf="mostrarToast" [ngClass]="tipoToast">
+    <app-icon [name]="tipoToast === 'exito' ? 'check-circle' : 'warning-circle'" [size]="24"></app-icon>
+    <span>{{ mensajeToast }}</span>
+    <div class="toast-progress"></div>
+  </div>
+
   <div class="login-card">
 
     <a routerLink="/" class="btn-volver">← Volver a la vista pública</a>

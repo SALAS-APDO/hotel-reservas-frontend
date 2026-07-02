@@ -19,7 +19,7 @@ export class EstadisticasComponent implements OnInit {
   
   // Metas (Lógica de Retail)
   metaDiaria: number = 2500; 
-  metaMensual: number = 10000; // Meta de venta por mes para evaluar el color
+  metaMensual: number = 10000; 
   anioActual: number = new Date().getFullYear();
 
   // Historial Anual
@@ -38,62 +38,73 @@ export class EstadisticasComponent implements OnInit {
   }
 
   cargarDatos() {
+    // 1. Primero cargamos las habitaciones para tener los precios a la mano
     this.hotelService.listarHabitaciones().subscribe(habs => {
       this.totalHabitaciones = habs.length;
-    });
 
-    this.hotelService.listarTodasLasReservas().subscribe(reservas => {
-      const hoy = new Date();
-      const mesActual = hoy.getMonth();
-      const offset = hoy.getTimezoneOffset() * 60000;
-      const fechaLocal = new Date(hoy.getTime() - offset);
-      const fechaHoyStr = fechaLocal.toISOString().split('T')[0];
+      // 2. Una vez que tenemos los precios, cargamos las reservas
+      this.hotelService.listarTodasLasReservas().subscribe(reservas => {
+        const hoy = new Date();
+        const mesActual = hoy.getMonth();
+        const offset = hoy.getTimezoneOffset() * 60000;
+        const fechaLocal = new Date(hoy.getTime() - offset);
+        const fechaHoyStr = fechaLocal.toISOString().split('T')[0];
 
-      let sumaHoy = 0;
-      let sumaMes = 0;
-      let ocupadas = 0;
+        let sumaHoy = 0;
+        let sumaMes = 0;
+        let ocupadas = 0;
 
-      reservas.forEach((res: any) => {
-        if (res.estado === 'PENDIENTE' || res.estado === 'CONFIRMADA') {
-          
-          // Solución infalible para zonas horarias: cortamos el texto YYYY-MM-DD
-          const [anioStr, mesStr, diaStr] = res.fechaEntrada.split('-');
-          const inicio = new Date(Number(anioStr), Number(mesStr) - 1, Number(diaStr));
-          
-          const fin = new Date(res.fechaSalida);
-          const diffTiempo = Math.abs(fin.getTime() - inicio.getTime());
-          const dias = Math.ceil(diffTiempo / (1000 * 60 * 60 * 24)) || 1;
-          const precioTotal = dias * (res.habitacion?.precioPorNoche || 0);
-
-          // Lógica Diaria
-          if (res.fechaEntrada === fechaHoyStr) { sumaHoy += precioTotal; }
-
-          // Lógica Mensual y Anual
-          if (inicio.getFullYear() === this.anioActual) {
-            const mesIndex = inicio.getMonth(); // 0 a 11
-            this.ventasPorMes[mesIndex].total += precioTotal; // Sumamos al mes correspondiente
+        reservas.forEach((res: any) => {
+          if (res.estado === 'PENDIENTE' || res.estado === 'CONFIRMADA') {
             
-            if (mesIndex === mesActual) { sumaMes += precioTotal; } // Sumamos al "Acumulado del Mes"
+            // Fechas seguras
+            const [anioStr, mesStr, diaStr] = res.fechaEntrada.split('-');
+            const inicio = new Date(Number(anioStr), Number(mesStr) - 1, Number(diaStr));
+            
+            const [anioF, mesF, diaF] = res.fechaSalida.split('-');
+            const fin = new Date(Number(anioF), Number(mesF) - 1, Number(diaF));
+            
+            const diffTiempo = Math.abs(fin.getTime() - inicio.getTime());
+            const dias = Math.ceil(diffTiempo / (1000 * 60 * 60 * 24)) || 1;
+            
+            // 💡 CRUCE DE DATOS: Buscamos el precio en la lista de habitaciones
+            const habEncontrada = habs.find((h: any) => h.numeroHabitacion === res.numeroHabitacion);
+            const precioPorNoche = habEncontrada ? habEncontrada.precioPorNoche : 0;
+            const precioTotal = dias * precioPorNoche;
+
+            // Lógica Diaria
+            if (res.fechaEntrada === fechaHoyStr) { sumaHoy += precioTotal; }
+
+            // Lógica Mensual y Anual
+            if (inicio.getFullYear() === this.anioActual) {
+              const mesIndex = inicio.getMonth(); 
+              this.ventasPorMes[mesIndex].total += precioTotal; 
+              
+              if (mesIndex === mesActual) { sumaMes += precioTotal; } 
+            }
+
+            // Habitaciones Ocupadas Hoy (Ignorando horas)
+            fechaLocal.setHours(0,0,0,0);
+            inicio.setHours(0,0,0,0);
+            fin.setHours(0,0,0,0);
+            if (fechaLocal >= inicio && fechaLocal <= fin) { ocupadas++; }
           }
+        });
 
-          // Habitaciones Ocupadas Hoy
-          if (fechaLocal >= inicio && fechaLocal <= fin) { ocupadas++; }
-        }
-      });
+        this.recaudadoHoy = sumaHoy;
+        this.recaudadoMes = sumaMes;
+        this.habitacionesOcupadas = ocupadas;
 
-      this.recaudadoHoy = sumaHoy;
-      this.recaudadoMes = sumaMes;
-      this.habitacionesOcupadas = ocupadas;
-
-      // Evaluar los colores de los meses (Rojo, Verde o Gris si aún no llega)
-      this.ventasPorMes.forEach((mes, index) => {
-        if (index > mesActual && mes.total === 0) {
-          mes.estado = 'futuro';
-        } else if (mes.total >= this.metaMensual) {
-          mes.estado = 'alcanzado';
-        } else {
-          mes.estado = 'bajo';
-        }
+        // Evaluar colores
+        this.ventasPorMes.forEach((mes, index) => {
+          if (index > mesActual && mes.total === 0) {
+            mes.estado = 'futuro';
+          } else if (mes.total >= this.metaMensual) {
+            mes.estado = 'alcanzado';
+          } else {
+            mes.estado = 'bajo';
+          }
+        });
       });
     });
   }

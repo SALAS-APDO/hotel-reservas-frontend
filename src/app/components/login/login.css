@@ -98,3 +98,52 @@
 .btn-login:hover {
   background-color: #27ae60;
 }
+
+.toast-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out forwards;
+  overflow: hidden;
+}
+
+.toast-notification.exito {
+  background-color: #10b981;
+}
+
+.toast-notification.error {
+  background-color: #ef4444;
+}
+
+.toast-notification.advertencia {
+  background-color: #f59e0b;
+}
+
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.7);
+  width: 100%;
+  animation: progressShrink 3s linear forwards;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes progressShrink {
+  from { width: 100%; }
+  to { width: 0%; }
+}

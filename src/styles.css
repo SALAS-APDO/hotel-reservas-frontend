@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+/* Importamos las letras de lujo desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap');
+
+/* Regla general: Letra fina y estilizada para textos, botones y menús */
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Regla premium: Letra elegante y pituca SOLO para los títulos */
+h1, h2, h3, h4, h5, h6, .brand h1 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.5px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8fafc;
+}

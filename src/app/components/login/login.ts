@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { LoginRequestDTO } from '../../models/login-request.dto';
 import { IconComponent } from '../icon/icon.component';
 import { AuthService } from '../../services/auth.service';
@@ -8,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink, IconComponent],
+  imports: [FormsModule, RouterLink, IconComponent, CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -19,14 +20,28 @@ export class Login {
     contrasena: ''
   };
 
+  mostrarToast: boolean = false;
+  mensajeToast: string = '';
+  tipoToast: 'exito' | 'error' | 'advertencia' = 'exito';
+
   constructor(
     private authService: AuthService,
     private router: Router
   ) { }
 
+  mostrarNotificacion(mensaje: string, tipo: 'exito' | 'error' | 'advertencia') {
+    this.mensajeToast = mensaje;
+    this.tipoToast = tipo;
+    this.mostrarToast = true;
+
+    setTimeout(() => {
+      this.mostrarToast = false;
+    }, 3000);
+  }
+
   iniciarSesion(): void {
     if (!this.credenciales.correo || !this.credenciales.contrasena) {
-      alert('Por favor, ingresa tu correo y contraseña.');
+      this.mostrarNotificacion('Por favor, ingresa tu correo y contraseña.', 'advertencia');
       return;
     }
 
@@ -34,14 +49,16 @@ export class Login {
       next: (respuesta) => {
         if (respuesta === 'Login exitoso') {
           this.authService.setSession('ADMIN');
-          alert('¡Inicio de sesión correcto! Bienvenido.');
+          this.mostrarNotificacion('¡Inicio de sesión correcto! Redirigiendo al Panel...', 'exito');
 
-          window.location.href = '/admin-dashboard';
+          setTimeout(() => {
+            window.location.href = '/admin-dashboard';
+          }, 1500);
         }
       },
       error: (err) => {
         console.error(err);
-        alert('Credenciales incorrectas. Inténtalo de nuevo.');
+        this.mostrarNotificacion('Credenciales incorrectas. Inténtalo de nuevo.', 'error');
       }
     });
   }
