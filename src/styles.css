@@ -17,3 +17,35 @@ body {
   padding: 0;
   background-color: #f8fafc;
 }
+.btn-whatsapp-premium {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background-color: #25D366;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  animation: latido-whatsapp 1.5s infinite;
+  transition: transform 0.3s ease;
+}
+
+.btn-whatsapp-premium:hover {
+  transform: scale(1.1);
+}
+
+.whatsapp-icono {
+  width: 35px;
+  height: 35px;
+}
+
+@keyframes latido-whatsapp {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+  70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}

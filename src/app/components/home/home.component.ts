@@ -32,6 +32,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   imagenActual: number = 0;
   intervaloCarrusel: any;
 
+  chatAbierto: boolean = false;
+  preguntasFrecuentes: any[] = [];
+  
+  mensajesChat: any[] = [
+    { emisor: 'bot', texto: '¡Hola! Bienvenido a Hoteles Inti. Por favor, selecciona una de nuestras preguntas frecuentes a continuación para resolver tus dudas al instante.' }
+  ];
+  preguntasRespondidas: Set<number> = new Set();
+
   constructor(private hotelService: HotelService, private router: Router) {}
 
   ngOnInit() {
@@ -41,12 +49,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       next: (data) => {
         this.hoteles = data;
       },
-      error: (err) => console.error("Error al traer hoteles:", err)
+      error: (err) => console.error(err)
     });
 
     this.intervaloCarrusel = setInterval(() => {
       this.imagenActual = (this.imagenActual + 1) % this.fondos.length;
     }, 5000);
+
+    this.cargarPreguntasChatbot();
   }
 
   ngOnDestroy() {
@@ -84,11 +94,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       next: (data) => {
         this.habitacionesDisponibles = data;
         this.haBuscado = true; 
-        console.log("Habitaciones recibidas:", data);
       },
       error: (err) => {
-        console.error("Error al buscar:", err);
-        alert("Hubo un error al buscar. Revisa la consola.");
+        alert("Hubo un error al buscar.");
       }
     });
   }
@@ -100,5 +108,47 @@ export class HomeComponent implements OnInit, OnDestroy {
         datosBusqueda: this.busqueda
       }
     });
+  }
+
+  cargarPreguntasChatbot() {
+    fetch('http://localhost:8080/api/chatbot')
+      .then(res => res.json())
+      .then(data => {
+        this.preguntasFrecuentes = data;
+      })
+      .catch(err => console.error(err));
+  }
+
+  toggleChat() {
+    this.chatAbierto = !this.chatAbierto;
+  }
+
+  seleccionarPregunta(preguntaObj: any) {
+    this.mensajesChat.push({ emisor: 'user', texto: preguntaObj.pregunta });
+
+    setTimeout(() => {
+      if (this.preguntasRespondidas.has(preguntaObj.id)) {
+        this.mensajesChat.push({
+          emisor: 'bot',
+          texto: `Esta información ya fue brindada: ${preguntaObj.respuesta} Si tienes otra duda, selecciona una opción distinta.`
+        });
+      } else {
+        this.mensajesChat.push({
+          emisor: 'bot',
+          texto: preguntaObj.respuesta
+        });
+        this.preguntasRespondidas.add(preguntaObj.id);
+      }
+      this.scrollChatAlFondo();
+    }, 400); 
+  }
+
+  scrollChatAlFondo() {
+    setTimeout(() => {
+      const chatContenedor = document.getElementById('chat-mensajes');
+      if (chatContenedor) {
+        chatContenedor.scrollTop = chatContenedor.scrollHeight;
+      }
+    }, 50);
   }
 }

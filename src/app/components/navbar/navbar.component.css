@@ -84,32 +84,3 @@
   transform: translateY(-2px); /* Se levanta un poquito al pasar el mouse */
   box-shadow: 0 6px 15px rgba(255, 183, 3, 0.35);
 }
-.btn-contacto-emergencia {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 60px;
-  height: 60px;
-  background-color: #25d366;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-  z-index: 999999; /* Nivel máximo para que nada lo tape */
-  transition: all 0.3s ease;
-  text-decoration: none;
-  animation: latido 2s infinite;
-}
-
-.btn-contacto-emergencia:hover {
-  transform: scale(1.1);
-  background-color: #1ebe57;
-  animation: none;
-}
-
-@keyframes latido {
-  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-}

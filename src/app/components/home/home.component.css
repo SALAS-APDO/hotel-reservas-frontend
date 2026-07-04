@@ -320,3 +320,23 @@
 .btn-seleccionar-hab:active {
   transform: scale(0.98);
 }
+/* DISEÑO DEL SCROLLBAR PARA EL CHATBOT */
+.chat-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.chat-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: rgba(234, 179, 8, 0.6); /* Dorado semi-transparente */
+  border-radius: 10px;
+}
+.chat-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(234, 179, 8, 1); /* Dorado brillante */
+}
+
+/* EFECTO HOVER PARA LAS PREGUNTAS */
+.btn-pregunta-chat:hover {
+  background: rgba(234, 179, 8, 0.2) !important;
+  border-color: #eab308 !important;
+}

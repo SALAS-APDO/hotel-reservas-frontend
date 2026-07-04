@@ -18,12 +18,13 @@ export class AdminDashboard implements OnInit {
   habitaciones: any[] = [];
   filtroTexto: string = '';
   fechaHoy: string = new Date().toISOString().split('T')[0];
-
+  vistaActual: 'ACTIVAS' | 'HISTORIAL' = 'ACTIVAS';
   mostrarModalEdicion: boolean = false;
   reservaEditando: any = {};
-
   mostrarModalNuevo: boolean = false;
   nuevaReserva: any = {};
+  mostrarModalConfirmacion: boolean = false;
+  reservaIdAEliminar: number = 0;
 
   constructor(
     private hotelService: HotelService,
@@ -36,11 +37,23 @@ export class AdminDashboard implements OnInit {
     this.cargarHabitaciones();
   }
 
+  cambiarVista(vista: 'ACTIVAS' | 'HISTORIAL') {
+    this.vistaActual = vista;
+  }
+
   get reservasFiltradas() {
-    if (!this.filtroTexto) return this.reservas; 
+    let listaBase = this.reservas.filter(reserva => {
+      if (this.vistaActual === 'ACTIVAS') {
+        return reserva.estado !== 'FINALIZADA';
+      } else {
+        return reserva.estado === 'FINALIZADA';
+      }
+    });
+
+    if (!this.filtroTexto) return listaBase; 
     
     const texto = this.filtroTexto.toLowerCase();
-    return this.reservas.filter(reserva => 
+    return listaBase.filter(reserva => 
       (reserva.dni && reserva.dni.includes(texto)) ||
       (reserva.clienteNombre && reserva.clienteNombre.toLowerCase().includes(texto))
     );
@@ -51,7 +64,7 @@ export class AdminDashboard implements OnInit {
       next: (data) => {
         this.reservas = data;
       },
-      error: (err) => console.error("Error al cargar reservas:", err)
+      error: (err) => console.error(err)
     });
   }
 
@@ -60,7 +73,7 @@ export class AdminDashboard implements OnInit {
       next: (data) => {
         this.habitaciones = data;
       },
-      error: (err) => console.error("Error al cargar habitaciones:", err)
+      error: (err) => console.error(err)
     });
   }
 
@@ -69,12 +82,21 @@ export class AdminDashboard implements OnInit {
     this.router.navigate(['/login']); 
   }
 
-  borrarReserva(id: number) {
-    if (confirm('¿Estás seguro de eliminar esta reserva?')) {
-      this.hotelService.eliminarReserva(id).subscribe(() => {
-        this.cargarReservas(); 
-      });
-    }
+  abrirModalConfirmacion(id: number) {
+    this.reservaIdAEliminar = id;
+    this.mostrarModalConfirmacion = true;
+  }
+
+  cerrarModalConfirmacion() {
+    this.mostrarModalConfirmacion = false;
+    this.reservaIdAEliminar = 0;
+  }
+
+  borrarReserva() {
+    this.hotelService.eliminarReserva(this.reservaIdAEliminar).subscribe(() => {
+      this.cargarReservas(); 
+      this.cerrarModalConfirmacion();
+    });
   }
 
   confirmarReserva(reserva: any) {
@@ -86,7 +108,7 @@ export class AdminDashboard implements OnInit {
 
     this.hotelService.actualizarReserva(reserva.id, dto).subscribe({
       next: () => this.cargarReservas(),
-      error: (err) => alert("Error al confirmar la reserva.")
+      error: (err) => alert("Error")
     });
   }
 
@@ -111,7 +133,7 @@ export class AdminDashboard implements OnInit {
         this.cargarReservas();
         this.cerrarModal();
       },
-      error: (err) => alert("Error al guardar la edición. Verifica las fechas.")
+      error: (err) => alert("Error")
     });
   }
 
@@ -139,7 +161,7 @@ export class AdminDashboard implements OnInit {
         this.cerrarModalNuevo(); 
       },
       error: (err) => {
-        alert("Hubo un error al registrar la reserva. Asegúrate de llenar todos los campos obligatorios y que las fechas sean correctas.");
+        alert("Error");
       }
     });
   }
