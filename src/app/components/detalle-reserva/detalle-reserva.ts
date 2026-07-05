@@ -12,6 +12,7 @@ import { ReservaService } from '../../services/reserva';
   styleUrl: './detalle-reserva.css'
 })
 export class DetalleReserva implements OnInit {
+  [x: string]: any;
   habitacion: any = null;
   busqueda: any = null;
   cantNoches: number = 1;
@@ -53,7 +54,7 @@ export class DetalleReserva implements OnInit {
     const entrada = new Date(this.busqueda.fechaLlegada);
     const salida = new Date(this.busqueda.fechaSalida);
     const diferenciaMs = salida.getTime() - entrada.getTime();
-    
+
     this.cantNoches = Math.max(1, Math.ceil(diferenciaMs / (1000 * 60 * 60 * 24)));
 
     this.total = this.habitacion.precioPorNoche * this.cantNoches;
@@ -69,7 +70,7 @@ export class DetalleReserva implements OnInit {
       fechaSalida: this.busqueda.fechaSalida,
       numAdultos: this.busqueda.adultos,
       numNinos: this.busqueda.ninos,
-      idCliente: 7 
+      idCliente: 7
     };
 
     this.reservaService.registrarReserva(dtoFinal).subscribe({

@@ -1,47 +1,28 @@
 <div class="destinos-container">
   <header class="destinos-header">
     <h2>Nuestras Sedes Exclusivas</h2>
-    <p>Explora nuestros tres conceptos únicos diseñados para tu descanso absoluto</p>
+    <p>Explora nuestros conceptos únicos diseñados para tu descanso absoluto</p>
   </header>
 
   <div class="destinos-grid">
+    @for (hotel of hoteles; track hotel.idHotel) {
     <div class="destino-card">
       <div class="card-image">
-        <img src="assets/sede-andes.jpg" alt="Hotel Andes">
+        <img [src]="hotel.imagenUrl || obtenerImagenPorDefecto(hotel.nombre)" [alt]="hotel.nombre">
         <span class="badge">
-          <app-icon name="mountain" [size]="14"></app-icon> Montaña
+          <app-icon [name]="obtenerIcono(hotel.nombre)" [size]="14"></app-icon>
+          {{ obtenerTextoBadge(hotel.nombre, hotel.ciudad) }}
         </span>
       </div>
       <div class="card-body">
-        <h3>Hotel Andes</h3>
-        <p>Disfruta de la majestuosidad de la cordillera. Despierta rodeado de paisajes imponentes, aire puro, chimeneas acogedoras y suites con vistas panorámicas increíbles.</p>
+        <h3>{{ hotel.nombre }}</h3>
+        <p>{{ hotel.descripcion || 'Sin descripción disponible.' }}</p>
+        <p style="font-size: 0.85rem; color: #64748b; margin-top: 8px; display: flex; align-items: center; gap: 6px;">
+          <app-icon name="hotel" [size]="14" style="color: #64748b;"></app-icon>
+          {{ hotel.direccion }}, {{ hotel.ciudad }}
+        </p>
       </div>
     </div>
-
-    <div class="destino-card">
-      <div class="card-image">
-        <img src="assets/sede-luna.jpg" alt="Hotel Luna">
-        <span class="badge">
-          <app-icon name="moon" [size]="14"></app-icon> Romance & Relax
-        </span>
-      </div>
-      <div class="card-body">
-        <h3>Hotel Luna</h3>
-        <p>Un concepto nocturno, místico y elegante. Perfecto para parejas que buscan una escapada romántica bajo las estrellas, fogatas privadas y jacuzzis climatizados al aire libre.</p>
-      </div>
-    </div>
-
-    <div class="destino-card">
-      <div class="card-image">
-        <img src="assets/sede-sol.jpg" alt="Hotel Sol">
-        <span class="badge">
-          <app-icon name="sun" [size]="14"></app-icon> Sol & Piscina
-        </span>
-      </div>
-      <div class="card-body">
-        <h3>Hotel Sol</h3>
-        <p>Diversión y calor garantizados todo el año. Amplias áreas verdes, piscinas gigantes, de estilo rústico tropical y cócteles refrescantes directo a tu reposera.</p>
-      </div>
-    </div>
+    }
   </div>
 </div>

@@ -15,32 +15,32 @@ import { IconComponent } from '../icon/icon.component';
 export class HomeComponent implements OnInit, OnDestroy {
   hoteles: any[] = [];
   busqueda = { hotelId: '', fechaLlegada: '', fechaSalida: '', adultos: 2, ninos: 0 };
-  
+
   habitacionesDisponibles: any[] = [];
-  
-  nombreHotelSeleccionado: string = ""; 
+
+  nombreHotelSeleccionado: string = "";
   haBuscado: boolean = false;
   fechaMinima: string = "";
 
   fondos: string[] = [
     '/assets/fondo-1.jpg',
-    '/assets/fondo-2.jpg',
-    '/assets/fondo-3.jpg',
+    '/assets/fondo-2.webp',
+    '/assets/fondo-3.webp',
     '/assets/fondo-4.jpg',
-    '/assets/fondo-5.jpg'
+    '/assets/fondo-5.jpeg'
   ];
   imagenActual: number = 0;
   intervaloCarrusel: any;
 
   chatAbierto: boolean = false;
   preguntasFrecuentes: any[] = [];
-  
+
   mensajesChat: any[] = [
-    { emisor: 'bot', texto: '¡Hola! Bienvenido a Hoteles Inti. Por favor, selecciona una de nuestras preguntas frecuentes a continuación para resolver tus dudas al instante.' }
+    { emisor: 'bot', texto: '¡Hola! Bienvenido a Hoteles UPN. Por favor, selecciona una de nuestras preguntas frecuentes a continuación para resolver tus dudas al instante.' }
   ];
   preguntasRespondidas: Set<number> = new Set();
 
-  constructor(private hotelService: HotelService, private router: Router) {}
+  constructor(private hotelService: HotelService, private router: Router) { }
 
   ngOnInit() {
     this.fechaMinima = new Date().toISOString().split('T')[0];
@@ -85,15 +85,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.nombreHotelSeleccionado = hotelEncontrado ? hotelEncontrado.nombre : "nuestro hotel";
 
     this.hotelService.buscarHabitaciones(
-      this.busqueda.hotelId, 
-      this.busqueda.fechaLlegada, 
+      this.busqueda.hotelId,
+      this.busqueda.fechaLlegada,
       this.busqueda.fechaSalida,
       this.busqueda.adultos,
       this.busqueda.ninos
     ).subscribe({
       next: (data) => {
         this.habitacionesDisponibles = data;
-        this.haBuscado = true; 
+        this.haBuscado = true;
       },
       error: (err) => {
         alert("Hubo un error al buscar.");
@@ -140,7 +140,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.preguntasRespondidas.add(preguntaObj.id);
       }
       this.scrollChatAlFondo();
-    }, 400); 
+    }, 400);
   }
 
   scrollChatAlFondo() {

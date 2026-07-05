@@ -1,16 +1,15 @@
 <nav class="navbar">
   <div class="brand">
-    <h1 routerLink="/" style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
-      <app-icon name="hotel" [size]="28" style="color: #0284c7;"></app-icon>
-      Hoteles Inti
+    <h1 routerLink="/" style="cursor: pointer; display: flex; align-items: center; gap: 8px; color: black;">
+      Hoteles UPN
     </h1>
   </div>
 
   <ul class="nav-links">
     @if (!isAdmin) {
-    <li><a routerLink="/destinos">Destinos</a></li>
-    <li><a routerLink="/">Hoteles</a></li>
-    <li><a routerLink="/nosotros">Nosotros</a></li>
+    <li><a routerLink="/destinos" style="color: black;">Destinos</a></li>
+    <li><a routerLink="/" style="color: black;">Hoteles</a></li>
+    <li><a routerLink="/nosotros" style="color: black;">Nosotros</a></li>
     }
   </ul>
 
@@ -23,5 +22,3 @@
     </button>
   </div>
 </nav>
-
-
