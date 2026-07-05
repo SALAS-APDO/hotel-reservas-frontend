@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HotelService } from '../../services/hotel.service';
-import { AuthService } from '../../services/auth.service'; 
+import { AuthService } from '../../services/auth.service';
 import { IconComponent } from '../icon/icon.component';
 
 @Component({
@@ -14,7 +14,7 @@ import { IconComponent } from '../icon/icon.component';
   styleUrls: ['./admin-dashboard.css']
 })
 export class AdminDashboard implements OnInit {
-  reservas: any[] = []; 
+  reservas: any[] = [];
   habitaciones: any[] = [];
   filtroTexto: string = '';
   fechaHoy: string = new Date().toISOString().split('T')[0];
@@ -30,7 +30,7 @@ export class AdminDashboard implements OnInit {
     private hotelService: HotelService,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.cargarReservas();
@@ -50,10 +50,10 @@ export class AdminDashboard implements OnInit {
       }
     });
 
-    if (!this.filtroTexto) return listaBase; 
-    
+    if (!this.filtroTexto) return listaBase;
+
     const texto = this.filtroTexto.toLowerCase();
-    return listaBase.filter(reserva => 
+    return listaBase.filter(reserva =>
       (reserva.dni && reserva.dni.includes(texto)) ||
       (reserva.clienteNombre && reserva.clienteNombre.toLowerCase().includes(texto))
     );
@@ -62,7 +62,14 @@ export class AdminDashboard implements OnInit {
   cargarReservas() {
     this.hotelService.listarTodasLasReservas().subscribe({
       next: (data) => {
-        this.reservas = data;
+        this.reservas = data.map((res: any) => ({
+          ...res,
+          id: res.idReserva,
+          clienteNombre: res.cliente ? `${res.cliente.nombre} ${res.cliente.apellido}` : 'Cliente Desconocido',
+          dni: res.cliente ? res.cliente.numeroDocumento : '',
+          nombreSede: res.habitacion?.hotel?.nombre || 'Sede Desconocida',
+          numeroHabitacion: res.habitacion?.numeroHabitacion || ''
+        }));
       },
       error: (err) => console.error(err)
     });
@@ -78,8 +85,8 @@ export class AdminDashboard implements OnInit {
   }
 
   cerrarSesionAdmin() {
-    this.authService.logout(); 
-    this.router.navigate(['/login']); 
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   abrirModalConfirmacion(id: number) {
@@ -94,7 +101,7 @@ export class AdminDashboard implements OnInit {
 
   borrarReserva() {
     this.hotelService.eliminarReserva(this.reservaIdAEliminar).subscribe(() => {
-      this.cargarReservas(); 
+      this.cargarReservas();
       this.cerrarModalConfirmacion();
     });
   }
@@ -103,7 +110,7 @@ export class AdminDashboard implements OnInit {
     const dto = {
       fechaEntrada: reserva.fechaEntrada,
       fechaSalida: reserva.fechaSalida,
-      estado: 'CONFIRMADA' 
+      estado: 'CONFIRMADA'
     };
 
     this.hotelService.actualizarReserva(reserva.id, dto).subscribe({
@@ -113,7 +120,7 @@ export class AdminDashboard implements OnInit {
   }
 
   abrirModalEditar(reserva: any) {
-    this.reservaEditando = { ...reserva }; 
+    this.reservaEditando = { ...reserva };
     this.mostrarModalEdicion = true;
   }
 
@@ -145,7 +152,7 @@ export class AdminDashboard implements OnInit {
       numNinos: 0,
       fechaEntrada: this.fechaHoy,
       fechaSalida: '',
-      idCliente: 0 
+      idCliente: 0
     };
     this.mostrarModalNuevo = true;
   }
@@ -157,8 +164,8 @@ export class AdminDashboard implements OnInit {
   guardarNuevaReserva() {
     this.hotelService.registrarReserva(this.nuevaReserva).subscribe({
       next: (mensaje) => {
-        this.cargarReservas(); 
-        this.cerrarModalNuevo(); 
+        this.cargarReservas();
+        this.cerrarModalNuevo();
       },
       error: (err) => {
         alert("Error");
@@ -186,10 +193,10 @@ export class AdminDashboard implements OnInit {
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    
+
     const fechaHoy = new Date().toISOString().split('T')[0];
     link.download = `Reporte_Inti_${fechaHoy}.csv`;
-    
+
     link.click();
     window.URL.revokeObjectURL(url);
   }
