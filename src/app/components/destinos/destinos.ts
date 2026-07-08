@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-import { IconComponent } from '../icon/icon.component';
+
 
 @Component({
   selector: 'app-destinos',
-  imports: [IconComponent],
+  imports: [],
   templateUrl: './destinos.html',
   styleUrl: './destinos.css',
 })

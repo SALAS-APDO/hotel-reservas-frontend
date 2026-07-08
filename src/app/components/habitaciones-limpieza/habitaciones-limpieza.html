@@ -11,9 +11,13 @@
     </div>
   </div>
 
+  <div style="margin-bottom: 20px;">
+    <input type="text" placeholder="🔍 Buscar habitación por número (ej. M101, S205)..." [(ngModel)]="filtroTexto" style="width: 100%; max-width: 400px; padding: 10px 15px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 1rem; outline: none;">
+  </div>
+
   <div class="grid-habitaciones">
     
-    <div *ngFor="let hab of habitaciones" 
+    <div *ngFor="let hab of habitacionesFiltradas" 
          class="tarjeta-habitacion" 
          [ngClass]="{
            'estado-libre': hab.estado === 'DISPONIBLE',
@@ -41,12 +45,8 @@
         <p><strong>Precio:</strong> S/ {{ hab.precioPorNoche }}</p>
       </div>
 
-      <div class="tarjeta-footer">
-        <select class="select-estado" (change)="cambiarEstado(hab, $event)">
-          <option value="DISPONIBLE" [selected]="hab.estado === 'DISPONIBLE'">DISPONIBLE</option>
-          <option value="OCUPADA" [selected]="hab.estado === 'OCUPADA'">OCUPADA</option>
-          <option value="LIMPIEZA" [selected]="hab.estado === 'LIMPIEZA'">LIMPIEZA</option>
-        </select>
+      <div class="tarjeta-footer" style="text-align: center; font-weight: bold; padding: 12px; border-top: 1px solid rgba(0,0,0,0.05); text-transform: uppercase;">
+        {{ hab.estado }}
       </div>
       
     </div>

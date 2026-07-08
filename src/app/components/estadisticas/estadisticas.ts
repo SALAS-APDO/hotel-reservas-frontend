@@ -39,15 +39,16 @@ export class EstadisticasComponent implements OnInit {
       this.totalHabitaciones = habs.length;
 
       this.hotelService.listarTodasLasReservas().subscribe(reservas => {
+        // Obtenemos la fecha de hoy segura
+        const fechaHoyStr = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000).toISOString().split('T')[0];
+        
         const hoy = new Date();
         const mesActual = hoy.getMonth();
-        const offset = hoy.getTimezoneOffset() * 60000;
-        const fechaLocal = new Date(hoy.getTime() - offset);
-        const fechaHoyStr = fechaLocal.toISOString().split('T')[0];
 
         let sumaHoy = 0;
         let sumaMes = 0;
-        let ocupadas = 0;
+        // Usamos Set para evitar contar la misma habitación dos veces
+        const cuartosOcupados = new Set(); 
 
         reservas.forEach((res: any) => {
           if (res.estado === 'PENDIENTE' || res.estado === 'CONFIRMADA' || res.estado === 'FINALIZADA') {
@@ -79,12 +80,10 @@ export class EstadisticasComponent implements OnInit {
               } 
             }
 
-            if (res.estado !== 'FINALIZADA') {
-              fechaLocal.setHours(0,0,0,0);
-              inicio.setHours(0,0,0,0);
-              fin.setHours(0,0,0,0);
-              if (fechaLocal >= inicio && fechaLocal <= fin) { 
-                ocupadas++; 
+            // Un cuarto está ocupado si la fecha de hoy es mayor o igual a la entrada y menor a la salida.
+            if (res.estado !== 'FINALIZADA' && res.estado !== 'CANCELADA') {
+              if (fechaHoyStr >= res.fechaEntrada && fechaHoyStr < res.fechaSalida) { 
+                cuartosOcupados.add(numeroHab); 
               }
             }
           }
@@ -92,7 +91,7 @@ export class EstadisticasComponent implements OnInit {
 
         this.recaudadoHoy = sumaHoy;
         this.recaudadoMes = sumaMes;
-        this.habitacionesOcupadas = ocupadas;
+        this.habitacionesOcupadas = cuartosOcupados.size; // Extraemos la cantidad de habitaciones únicas
 
         this.ventasPorMes.forEach((mes, index) => {
           if (index > mesActual && mes.total === 0) {

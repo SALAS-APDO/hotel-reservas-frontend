@@ -17,7 +17,7 @@ export class AdminDashboard implements OnInit {
   reservas: any[] = []; 
   habitaciones: any[] = [];
   filtroTexto: string = '';
-  fechaHoy: string = new Date().toISOString().split('T')[0];
+  fechaHoy: string = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000).toISOString().split('T')[0];
   vistaActual: 'ACTIVAS' | 'HISTORIAL' = 'ACTIVAS';
   mostrarModalEdicion: boolean = false;
   reservaEditando: any = {};
@@ -192,5 +192,33 @@ export class AdminDashboard implements OnInit {
     
     link.click();
     window.URL.revokeObjectURL(url);
+  }
+  obtenerSede(numeroHabitacion: string): string {
+    if (!numeroHabitacion) return '';
+    const primerDigito = numeroHabitacion.match(/\d/); 
+    if (primerDigito) {
+      if (primerDigito[0] === '1') return 'Sede Los Olivos';
+      if (primerDigito[0] === '2') return 'Sede Breña';
+      if (primerDigito[0] === '3') return 'Sede Comas';
+    }
+    return 'Sede UPN';
+  }
+
+  // CON ESTO COMPAÑEROS VERIFICAMOS SI LA HABITACION CHOCA CON LAS FECHAS DEL ADMIN
+  estaHabitacionOcupada(numeroHabitacion: string): boolean {
+    if (!this.nuevaReserva.fechaEntrada || !this.nuevaReserva.fechaSalida) return false;
+
+    // Buscamos todas las reservas de esa habitación
+    const reservasHab = this.reservas.filter(r => 
+      r.numeroHabitacion === numeroHabitacion && r.estado !== 'FINALIZADA' && r.estado !== 'CANCELADA'
+    );
+
+    // Cruzamos las fechas
+    for (const res of reservasHab) {
+      if (this.nuevaReserva.fechaEntrada < res.fechaSalida && this.nuevaReserva.fechaSalida > res.fechaEntrada) {
+        return true; // ¡Hay choque de fechas!
+      }
+    }
+    return false; // Está libre para las fechas elegidas
   }
 }

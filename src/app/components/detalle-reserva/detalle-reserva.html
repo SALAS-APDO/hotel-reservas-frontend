@@ -70,10 +70,14 @@
       <div class="room-tag">{{ habitacion.tipoHabitacion || 'HABITACIÓN SELECCIONADA' }}</div>
       
       <div class="summary-details">
-        <p><strong>📅 Entrada:</strong> <span>{{ busqueda.fechaLlegada }}</span></p>
-        <p><strong>📅 Salida:</strong> <span>{{ busqueda.fechaSalida }}</span></p>
+        <p><strong>📅 Entrada:</strong> <span>{{ busqueda.fechaLlegada }} (14:00 hrs)</span></p>
+        <p><strong>📅 Salida:</strong> <span>{{ busqueda.fechaSalida }} (11:00 hrs)</span></p>
         <p><strong>🌙 Noches:</strong> <span>{{ cantNoches }} noche(s)</span></p>
         <p><strong>👥 Huéspedes:</strong> <span>{{ busqueda.adultos }} Ad, {{ busqueda.ninos }} Niñ</span></p>
+      </div>
+
+      <div style="background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 10px; margin-top: 15px; margin-bottom: 15px; font-size: 0.85rem; color: #b45309; border-radius: 0 4px 4px 0;">
+        <strong>Nota de hospedaje:</strong> La habitación se entrega a partir de las 14:00 hrs y la devolución de llaves es máximo a las 11:00 hrs para proceder con el protocolo de limpieza.
       </div>
 
       <hr>

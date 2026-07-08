@@ -168,16 +168,20 @@
         </legend>
         <div class="row-form">
           <div class="form-group-full">
-            <label>Seleccionar Habitación:</label>
-            <select [(ngModel)]="nuevaReserva.idHabitacion" name="idHabitacion" class="form-control" required>
-              <option value="" disabled selected>-- Elige una Habitación --</option>
-              <option *ngFor="let hab of habitaciones" [value]="hab.idHabitacion">
-                Hab. {{ hab.numeroHabitacion }} - {{ hab.tipoHabitacion }} (S/ {{ hab.precioPorNoche }})
-              </option>
-            </select>
-          </div>
+              <label>Seleccionar Habitación (Elija sus fechas abajo primero):</label>
+              <select [(ngModel)]="nuevaReserva.idHabitacion" name="idHabitacion" class="form-control" required>
+                <option value="" disabled selected>-- Elige una Habitación --</option>
+                <option *ngFor="let hab of habitaciones" 
+                        [value]="hab.idHabitacion" 
+                        [disabled]="estaHabitacionOcupada(hab.numeroHabitacion)">
+                  
+                  [{{ obtenerSede(hab.numeroHabitacion) }}] - Hab. {{ hab.numeroHabitacion }} - {{ hab.tipoHabitacion }} 
+                  {{ estaHabitacionOcupada(hab.numeroHabitacion) ? ' ❌ (OCUPADA)' : ' ✅ (S/ ' + hab.precioPorNoche + ')' }}
+                  
+                </option>
+              </select>
+            </div>
         </div>
-
         <div class="row-form">
           <div class="form-group-half">
             <label>Fecha Entrada:</label>

@@ -50,6 +50,9 @@
   <div class="resultados-header">
     <h2>Habitaciones Disponibles en {{ nombreHotelSeleccionado || 'nuestro hotel' }}</h2>
     <p>Selecciona la opción perfecta para tu estadía en {{ nombreHotelSeleccionado || 'nuestro hotel' }}.</p>
+    <div style="background-color: #f0f9ff; color: #0284c7; padding: 8px 16px; border-radius: 6px; margin-top: 12px; display: inline-block; font-size: 0.95rem; font-weight: 500; border: 1px solid #bae6fd;">
+      🕒 Horarios de estadía: Check-in desde las 14:00 hrs | Check-out hasta las 11:00 hrs
+    </div>
   </div>
 
   @if (habitacionesDisponibles.length === 0) {
@@ -60,16 +63,19 @@
   } @else {
   <div class="habitaciones-grid">
     @for (hab of habitacionesDisponibles; track $index) {
-    <div class="habitacion-card">
+   <div class="habitacion-card" [ngStyle]="{'opacity': hab.estadoVisual === 'OCUPADA' ? '0.75' : '1', 'border': hab.estadoVisual === 'OCUPADA' ? '2px solid #ef4444' : 'none'}">
+      
       <div class="habitacion-img-box">
+        <img [src]="obtenerFotoHabitacion(nombreHotelSeleccionado)" alt="Habitación en {{ nombreHotelSeleccionado }}">
         
-         <img [src]="obtenerFotoHabitacion(nombreHotelSeleccionado)" alt="Habitación en {{ nombreHotelSeleccionado }}">
-
-        <div class="precio-badge">S/. {{ hab.precioPorNoche }} <span>/ noche</span></div>
+        <div class="precio-badge" [ngStyle]="{'background': hab.estadoVisual === 'OCUPADA' ? '#ef4444' : '#0f529f'}">
+          <span *ngIf="hab.estadoVisual === 'OCUPADA'">OCUPADA</span>
+          <span *ngIf="hab.estadoVisual !== 'OCUPADA'">S/. {{ hab.precioPorNoche }} <span>/ noche</span></span>
+        </div>
       </div>
 
       <div class="habitacion-detalles">
-        <h3>{{ hab.tipoHabitacion }} (N° {{ hab.numeroHabitacion }})</h3>
+        <h3 [ngStyle]="{'color': hab.estadoVisual === 'OCUPADA' ? '#ef4444' : ''}">{{ hab.tipoHabitacion }} (N° {{ hab.numeroHabitacion }})</h3>
 
         <p class="capacidad-info" style="color: #0284c7; font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
           <app-icon name="users" [size]="18" style="color: #0284c7;"></app-icon>
@@ -99,7 +105,12 @@
           </div>
         </div>
 
-        <button class="btn-seleccionar-hab" (click)="irADetalle(hab)">Reservar Ahora</button>
+        <button class="btn-seleccionar-hab" 
+                [disabled]="hab.estadoVisual === 'OCUPADA'"
+                [ngStyle]="{'background': hab.estadoVisual === 'OCUPADA' ? '#94a3b8' : '', 'cursor': hab.estadoVisual === 'OCUPADA' ? 'not-allowed' : 'pointer'}"
+                (click)="irADetalle(hab)">
+          {{ hab.estadoVisual === 'OCUPADA' ? 'NO DISPONIBLE' : 'Reservar Ahora' }}
+        </button>
       </div>
     </div>
     }
@@ -157,9 +168,9 @@
   </button>
 </div>
 
-<a href="https://wa.me/51999999999?text=Hola,%20vengo%20de%20la%20página%20web%20y%20quiero%20más%20información%20sobre%20las%20reservas." 
-   class="btn-whatsapp-premium" 
-   target="_blank" 
+<a (click)="abrirWhatsApp()"
+   class="btn-whatsapp-premium"
+   style="cursor: pointer;"
    aria-label="Contactar por WhatsApp">
   
   <svg viewBox="0 0 32 32" class="whatsapp-icono">
