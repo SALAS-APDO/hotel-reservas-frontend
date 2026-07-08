@@ -14,7 +14,7 @@
 /* 2. Logo */
 .brand h1 {
   font-size: 1.5rem;
-  color: #0f529f; /* Azul institucional Inti */
+  color: #0f529f; /* Azul institucional upn */
   margin: 0;
   font-weight: 800;
   letter-spacing: 0.5px;
@@ -51,14 +51,14 @@
   margin-top: 4px;
   left: 50%; /* Empieza desde el centro */
   transform: translateX(-50%);
-  background: #ffb703; /* Dorado Inti */
+  background: #ffb703; /* Dorado UPN */
   transition: width 0.3s ease;
   border-radius: 2px;
 }
 
 /* 6. Cuando el usuario pasa el mouse (Hover) */
 .nav-links a:hover {
-  color: #0f529f; /* El texto se pinta de azul Inti */
+  color: #0f529f; /* El texto se pinta de azul UPN */
 }
 
 .nav-links a:hover::after {

@@ -23,11 +23,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   fechaMinima: string = "";
 
   fondos: string[] = [
-    '/assets/fondo-1.jpg',
-    '/assets/fondo-2.jpg',
-    '/assets/fondo-3.jpg',
-    '/assets/fondo-4.jpg',
-    '/assets/fondo-5.jpg'
+    '/assets/fondoupn-1.jpg',
+    '/assets/fondoupn-2.jpg',
+    '/assets/fondoupn-3.jpg',
+    
   ];
   imagenActual: number = 0;
   intervaloCarrusel: any;
@@ -36,7 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   preguntasFrecuentes: any[] = [];
   
   mensajesChat: any[] = [
-    { emisor: 'bot', texto: '¡Hola! Bienvenido a Hoteles Inti. Por favor, selecciona una de nuestras preguntas frecuentes a continuación para resolver tus dudas al instante.' }
+    { emisor: 'bot', texto: '¡Hola! Bienvenido a Hoteles UPN. Por favor, selecciona una de nuestras preguntas frecuentes a continuación para resolver tus dudas al instante.' }
   ];
   preguntasRespondidas: Set<number> = new Set();
 
@@ -150,5 +149,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         chatContenedor.scrollTop = chatContenedor.scrollHeight;
       }
     }, 50);
+  }
+
+  obtenerFotoHabitacion(nombreHotel: string): string {
+    if (nombreHotel === 'Sede Los Olivos') {
+      return 'assets/habitacion-olivos.jpg';
+    } else if (nombreHotel === 'Sede Breña') {
+      return 'assets/habitacion-brena.jpg';
+    } else if (nombreHotel === 'Sede Comas') {
+      return 'assets/habitacion-comas.jpg';
+    }
+    return 'assets/habitacion-olivos.jpg';
   }
 }

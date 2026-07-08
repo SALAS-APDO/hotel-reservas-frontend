@@ -188,7 +188,7 @@ export class AdminDashboard implements OnInit {
     link.href = url;
     
     const fechaHoy = new Date().toISOString().split('T')[0];
-    link.download = `Reporte_Inti_${fechaHoy}.csv`;
+    link.download = `Reporte_UPN_${fechaHoy}.csv`;
     
     link.click();
     window.URL.revokeObjectURL(url);
