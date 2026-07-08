@@ -11,18 +11,15 @@ import { IconComponent } from '../icon/icon.component';
   styleUrls: ['./estadisticas.css']
 })
 export class EstadisticasComponent implements OnInit {
-  // Variables de Hoy y Mes
   recaudadoHoy: number = 0;
   recaudadoMes: number = 0;
   habitacionesOcupadas: number = 0;
   totalHabitaciones: number = 0; 
   
-  // Metas (Lógica de Retail)
   metaDiaria: number = 2500; 
-  metaMensual: number = 10000; // Meta de venta por mes para evaluar el color
+  metaMensual: number = 10000; 
   anioActual: number = new Date().getFullYear();
 
-  // Historial Anual
   ventasPorMes: any[] = [];
   
   constructor(private hotelService: HotelService) {}
@@ -40,60 +37,72 @@ export class EstadisticasComponent implements OnInit {
   cargarDatos() {
     this.hotelService.listarHabitaciones().subscribe(habs => {
       this.totalHabitaciones = habs.length;
-    });
 
-    this.hotelService.listarTodasLasReservas().subscribe(reservas => {
-      const hoy = new Date();
-      const mesActual = hoy.getMonth();
-      const offset = hoy.getTimezoneOffset() * 60000;
-      const fechaLocal = new Date(hoy.getTime() - offset);
-      const fechaHoyStr = fechaLocal.toISOString().split('T')[0];
+      this.hotelService.listarTodasLasReservas().subscribe(reservas => {
+        const hoy = new Date();
+        const mesActual = hoy.getMonth();
+        const offset = hoy.getTimezoneOffset() * 60000;
+        const fechaLocal = new Date(hoy.getTime() - offset);
+        const fechaHoyStr = fechaLocal.toISOString().split('T')[0];
 
-      let sumaHoy = 0;
-      let sumaMes = 0;
-      let ocupadas = 0;
+        let sumaHoy = 0;
+        let sumaMes = 0;
+        let ocupadas = 0;
 
-      reservas.forEach((res: any) => {
-        if (res.estado === 'PENDIENTE' || res.estado === 'CONFIRMADA') {
-          
-          // Solución infalible para zonas horarias: cortamos el texto YYYY-MM-DD
-          const [anioStr, mesStr, diaStr] = res.fechaEntrada.split('-');
-          const inicio = new Date(Number(anioStr), Number(mesStr) - 1, Number(diaStr));
-          
-          const fin = new Date(res.fechaSalida);
-          const diffTiempo = Math.abs(fin.getTime() - inicio.getTime());
-          const dias = Math.ceil(diffTiempo / (1000 * 60 * 60 * 24)) || 1;
-          const precioTotal = dias * (res.habitacion?.precioPorNoche || 0);
-
-          // Lógica Diaria
-          if (res.fechaEntrada === fechaHoyStr) { sumaHoy += precioTotal; }
-
-          // Lógica Mensual y Anual
-          if (inicio.getFullYear() === this.anioActual) {
-            const mesIndex = inicio.getMonth(); // 0 a 11
-            this.ventasPorMes[mesIndex].total += precioTotal; // Sumamos al mes correspondiente
+        reservas.forEach((res: any) => {
+          if (res.estado === 'PENDIENTE' || res.estado === 'CONFIRMADA' || res.estado === 'FINALIZADA') {
             
-            if (mesIndex === mesActual) { sumaMes += precioTotal; } // Sumamos al "Acumulado del Mes"
+            const [anioStr, mesStr, diaStr] = res.fechaEntrada.split('-');
+            const inicio = new Date(Number(anioStr), Number(mesStr) - 1, Number(diaStr));
+            
+            const [anioF, mesF, diaF] = res.fechaSalida.split('-');
+            const fin = new Date(Number(anioF), Number(mesF) - 1, Number(diaF));
+            
+            const diffTiempo = Math.abs(fin.getTime() - inicio.getTime());
+            const dias = Math.ceil(diffTiempo / (1000 * 60 * 60 * 24)) || 1;
+            
+            const numeroHab = res.numeroHabitacion || res.habitacionNum;
+            const habEncontrada = habs.find((h: any) => h.numeroHabitacion === numeroHab);
+            const precioPorNoche = habEncontrada ? habEncontrada.precioPorNoche : 0;
+            const precioTotal = dias * precioPorNoche;
+
+            if (res.fechaEntrada === fechaHoyStr) { 
+              sumaHoy += precioTotal; 
+            }
+
+            if (inicio.getFullYear() === this.anioActual) {
+              const mesIndex = inicio.getMonth(); 
+              this.ventasPorMes[mesIndex].total += precioTotal; 
+              
+              if (mesIndex === mesActual) { 
+                sumaMes += precioTotal; 
+              } 
+            }
+
+            if (res.estado !== 'FINALIZADA') {
+              fechaLocal.setHours(0,0,0,0);
+              inicio.setHours(0,0,0,0);
+              fin.setHours(0,0,0,0);
+              if (fechaLocal >= inicio && fechaLocal <= fin) { 
+                ocupadas++; 
+              }
+            }
           }
+        });
 
-          // Habitaciones Ocupadas Hoy
-          if (fechaLocal >= inicio && fechaLocal <= fin) { ocupadas++; }
-        }
-      });
+        this.recaudadoHoy = sumaHoy;
+        this.recaudadoMes = sumaMes;
+        this.habitacionesOcupadas = ocupadas;
 
-      this.recaudadoHoy = sumaHoy;
-      this.recaudadoMes = sumaMes;
-      this.habitacionesOcupadas = ocupadas;
-
-      // Evaluar los colores de los meses (Rojo, Verde o Gris si aún no llega)
-      this.ventasPorMes.forEach((mes, index) => {
-        if (index > mesActual && mes.total === 0) {
-          mes.estado = 'futuro';
-        } else if (mes.total >= this.metaMensual) {
-          mes.estado = 'alcanzado';
-        } else {
-          mes.estado = 'bajo';
-        }
+        this.ventasPorMes.forEach((mes, index) => {
+          if (index > mesActual && mes.total === 0) {
+            mes.estado = 'futuro';
+          } else if (mes.total >= this.metaMensual) {
+            mes.estado = 'alcanzado';
+          } else {
+            mes.estado = 'bajo';
+          }
+        });
       });
     });
   }

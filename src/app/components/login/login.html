@@ -1,4 +1,11 @@
 <div class="login-container">
+
+  <div class="toast-notification" *ngIf="mostrarToast" [ngClass]="tipoToast">
+    <app-icon [name]="tipoToast === 'exito' ? 'check-circle' : 'warning-circle'" [size]="24"></app-icon>
+    <span>{{ mensajeToast }}</span>
+    <div class="toast-progress"></div>
+  </div>
+
   <div class="login-card">
 
     <a routerLink="/" class="btn-volver">← Volver a la vista pública</a>
@@ -6,7 +13,7 @@
     <div class="login-header">
       <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
         <app-icon name="hotel" [size]="28" style="color: #0f529f;"></app-icon>
-        Panel Inti
+        Panel UPN
       </h2>
       <p>Acceso exclusivo para administradores</p>
     </div>

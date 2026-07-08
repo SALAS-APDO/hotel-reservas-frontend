@@ -1,7 +1,7 @@
 .destinos-container {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f9;
-  padding: 60px 20px;
+  padding: 80px 5%;
+  background-color: #f8fafc;
+  min-height: calc(100vh - 70px);
 }
 
 .destinos-header {
@@ -11,36 +11,34 @@
 
 .destinos-header h2 {
   color: #0f529f;
-  font-size: 2.3rem;
+  font-size: 2.5rem;
   margin-bottom: 10px;
 }
 
 .destinos-header p {
-  color: #666;
+  color: #64748b;
   font-size: 1.1rem;
 }
 
 .destinos-grid {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
   max-width: 1200px;
   margin: 0 auto;
-  flex-wrap: wrap;
 }
 
 .destino-card {
   background: white;
-  border-radius: 12px;
-  width: 360px;
+  border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .destino-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
 }
 
 .card-image {
@@ -58,27 +56,16 @@
   position: absolute;
   top: 15px;
   left: 15px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: white;
   color: #0f529f;
-  padding: 6px 14px;
-  font-weight: 700;
-  font-size: 0.85rem;
+  padding: 6px 15px;
   border-radius: 20px;
-  display: inline-flex;
+  font-size: 0.85rem;
+  font-weight: bold;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.destino-card:hover .badge {
-  background: #ffb703;
-  color: #1e293b;
-  border-color: #ffb703;
-  box-shadow: 0 6px 18px rgba(255, 183, 3, 0.4);
+  gap: 5px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
 .card-body {
@@ -87,14 +74,12 @@
 
 .card-body h3 {
   color: #0f529f;
-  font-size: 1.5rem;
-  margin-bottom: 12px;
+  font-size: 1.4rem;
+  margin-bottom: 15px;
 }
 
 .card-body p {
-  color: #555;
+  color: #475569;
   line-height: 1.6;
   font-size: 0.95rem;
-  margin: 0;
-  height: 90px; /* Mantiene la misma altura en todas las tarjetas para que se vean alineadas */
 }

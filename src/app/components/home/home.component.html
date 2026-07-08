@@ -1,4 +1,4 @@
-<div class="hero-container">
+<div class="hero-container" [style.backgroundImage]="'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(' + fondos[imagenActual] + ')'">
   <div class="hero-text">
     <p>Vive unas</p>
     <h1>vacaciones soñadas</h1>
@@ -20,14 +20,12 @@
 
       <div class="input-group">
         <label>Llegada</label>
-        <input type="date" class="search-input" [(ngModel)]="busqueda.fechaLlegada" name="fechaLlegada"
-          [min]="fechaMinima">
+        <input type="date" class="search-input" [(ngModel)]="busqueda.fechaLlegada" name="fechaLlegada" [min]="fechaMinima">
       </div>
 
       <div class="input-group">
         <label>Salida</label>
-        <input type="date" class="search-input" [(ngModel)]="busqueda.fechaSalida" name="fechaSalida"
-          [min]="busqueda.fechaLlegada">
+        <input type="date" class="search-input" [(ngModel)]="busqueda.fechaSalida" name="fechaSalida" [min]="busqueda.fechaLlegada">
       </div>
 
       <div class="input-group">
@@ -55,8 +53,7 @@
   </div>
 
   @if (habitacionesDisponibles.length === 0) {
-  <div
-    style="text-align: center; color: #64748b; font-size: 1.1rem; margin-top: 20px; padding: 20px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+  <div style="text-align: center; color: #64748b; font-size: 1.1rem; margin-top: 20px; padding: 20px; display: flex; align-items: center; justify-content: center; gap: 8px;">
     <app-icon name="alert" [size]="22" style="color: #eab308;"></app-icon>
     No se encontraron habitaciones disponibles para los criterios seleccionados o capacidad requerida.
   </div>
@@ -65,30 +62,22 @@
     @for (hab of habitacionesDisponibles; track $index) {
     <div class="habitacion-card">
       <div class="habitacion-img-box">
-        @if (hab.tipoHabitacion?.toLowerCase().includes('suite')) {
-        <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=600" alt="Suite">
-        } @else if (hab.tipoHabitacion?.toLowerCase().includes('matrimonial')) {
-        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=600" alt="Matrimonial">
-        } @else if (hab.tipoHabitacion?.toLowerCase().includes('familiar')) {
-        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=600" alt="Familiar">
-        } @else {
-        <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=600" alt="Habitación">
-        }
+        
+         <img [src]="obtenerFotoHabitacion(nombreHotelSeleccionado)" alt="Habitación en {{ nombreHotelSeleccionado }}">
+
         <div class="precio-badge">S/. {{ hab.precioPorNoche }} <span>/ noche</span></div>
       </div>
 
       <div class="habitacion-detalles">
         <h3>{{ hab.tipoHabitacion }} (N° {{ hab.numeroHabitacion }})</h3>
 
-        <p class="capacidad-info"
-          style="color: #0284c7; font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+        <p class="capacidad-info" style="color: #0284c7; font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
           <app-icon name="users" [size]="18" style="color: #0284c7;"></app-icon>
           Capacidad Máxima: {{ hab.capacidadMaxima }} personas
         </p>
 
         <p class="descripcion">
-          Disfruta de una estadía premium en nuestra {{ hab.tipoHabitacion }}. Diseñada perfectamente para albergar
-          hasta {{ hab.capacidadMaxima }} huéspedes con total comodidad.
+          Disfruta de una estadía premium en nuestra {{ hab.tipoHabitacion }}. Diseñada perfectamente para albergar hasta {{ hab.capacidadMaxima }} huéspedes con total comodidad.
         </p>
 
         <div class="caracteristicas-icons-modern">
@@ -118,3 +107,62 @@
   }
 </div>
 }
+
+<div class="chatbot-flotante">
+  <div *ngIf="chatAbierto" style="position: fixed; bottom: 100px; left: 50px; width: 350px; background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); z-index: 10000; overflow: hidden; display: flex; flex-direction: column; max-height: 500px; border: 1px solid rgba(255, 255, 255, 0.15); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    
+    <div style="background: rgba(255, 255, 255, 0.08); color: white; padding: 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        <div>
+          <h3 style="margin: 0; font-size: 1.05rem; font-weight: 600; color: #ffffff; letter-spacing: 0.5px;">Asistente UPN</h3>
+          <span style="font-size: 0.75rem; color: #cbd5e1;">Respuestas al instante</span>
+        </div>
+      </div>
+      <button (click)="toggleChat()" style="background: none; border: none; color: white; cursor: pointer; opacity: 0.8; transition: 0.2s;">
+        <app-icon name="close" [size]="20"></app-icon>
+      </button>
+    </div>
+
+    <div id="chat-mensajes" class="chat-scroll" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; min-height: 240px;">
+      <div *ngFor="let msg of mensajesChat" [ngStyle]="{
+        'align-self': msg.emisor === 'user' ? 'flex-end' : 'flex-start', 
+        'background': msg.emisor === 'user' ? '#eab308' : 'rgba(255, 255, 255, 0.15)', 
+        'color': msg.emisor === 'user' ? '#0f172a' : '#f8fafc', 
+        'padding': '12px 16px', 
+        'border-radius': '14px', 
+        'max-width': '85%', 
+        'font-size': '0.9rem', 
+        'line-height': '1.5', 
+        'border': msg.emisor === 'user' ? 'none' : '1px solid rgba(255,255,255,0.1)',
+        'border-bottom-right-radius': msg.emisor === 'user' ? '4px' : '14px',
+        'border-bottom-left-radius': msg.emisor === 'bot' ? '4px' : '14px'
+      }">
+        {{ msg.texto }}
+      </div>
+    </div>
+
+    <div style="padding: 14px; background: rgba(0, 0, 0, 0.2); border-top: 1px solid rgba(255, 255, 255, 0.08);">
+      <div class="chat-scroll" style="display: flex; flex-direction: column; gap: 8px; max-height: 150px; overflow-y: auto; padding-right: 4px;">
+        <button *ngFor="let p of preguntasFrecuentes" (click)="seleccionarPregunta(p)" class="btn-pregunta-chat" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); color: #f8fafc; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; text-align: left;">
+          {{ p.pregunta }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <button (click)="toggleChat()" style="position: fixed; bottom: 25px; left: 50px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #eab308, #d97706); border: none; box-shadow: 0 8px 20px rgba(217, 119, 6, 0.4); cursor: pointer; display: flex; justify-content: center; align-items: center; z-index: 10001; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+    <svg *ngIf="!chatAbierto" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 30px; height: 30px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+    <app-icon *ngIf="chatAbierto" name="close" [size]="30" style="color: white;"></app-icon>
+  </button>
+</div>
+
+<a href="https://wa.me/51999999999?text=Hola,%20vengo%20de%20la%20página%20web%20y%20quiero%20más%20información%20sobre%20las%20reservas." 
+   class="btn-whatsapp-premium" 
+   target="_blank" 
+   aria-label="Contactar por WhatsApp">
+  
+  <svg viewBox="0 0 32 32" class="whatsapp-icono">
+    <path d="M16.002 1.332c-8.106 0-14.667 6.562-14.667 14.668 0 2.583.673 5.011 1.838 7.15L1.335 30.668l7.683-1.836c2.091 1.05 4.453 1.636 6.984 1.636 8.106 0 14.667-6.561 14.667-14.668S24.108 1.332 16.002 1.332zm0 26.837c-2.185 0-4.24-.555-6.046-1.527l-.433-.233-4.498 1.076 1.096-4.382-.257-.456A12.062 12.062 0 0 1 3.935 16c0-6.64 5.426-12.066 12.067-12.066s12.066 5.426 12.066 12.066-5.425 12.169-12.066 12.169zm6.615-9.014c-.362-.181-2.146-1.059-2.477-1.18s-.574-.181-.815.181-.937 1.18-1.147 1.42c-.212.242-.424.272-.786.091s-1.53-.564-2.915-1.796c-1.077-.959-1.805-2.142-2.016-2.505-.211-.362-.022-.559.16-.74.162-.161.362-.422.543-.633.181-.211.242-.362.362-.603.121-.242.061-.453-.03-.633-.09-.181-.815-1.962-1.117-2.686-.294-.705-.595-.609-.815-.62-.211-.01-.453-.01-.695-.01s-.633.091-.966.453c-.332.362-1.268 1.238-1.268 3.018s1.3 3.5 1.481 3.742c.181.242 2.552 3.896 6.182 5.464 2.453 1.06 3.393 1.14 4.673.96 1.085-.151 3.14-1.282 3.593-2.52.453-1.237.453-2.302.317-2.523-.135-.221-.497-.352-.86-.533z" fill="currentColor"></path>
+  </svg>
+</a>

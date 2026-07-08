@@ -1,9 +1,11 @@
 .hero-container {
   position: relative;
   width: 100%;
-  height: calc(100vh - 70px); /* Ajusta según el alto de tu barra de navegación */
-  background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
-              url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1400') no-repeat center center/cover;
+  height: calc(100vh - 70px);
+  transition: background-image 1.5s ease-in-out;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,7 +14,6 @@
   overflow: hidden;
 }
 
-/* Texto Central */
 .hero-text {
   text-align: center;
   color: white;
@@ -35,7 +36,6 @@
   line-height: 1.1;
 }
 
-/* Contenedor de la Barra de Búsqueda (Actualizado al Azul Institucional) */
 .search-bar-container {
   position: absolute;
   bottom: 40px;
@@ -47,31 +47,37 @@
 }
 
 .search-title {
-  background-color: #0f529f; /* ✨ Corregido: Ahora combina con las tarjetas */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: white;
-  padding: 8px 20px;
+  padding: 10px 25px;
   font-size: 0.95rem;
   font-weight: 600;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: none;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
   letter-spacing: 0.5px;
 }
 
 .search-bar {
-  background-color: #0f529f; /* ✨ Corregido: Azul premium unificado */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   width: 100%;
-  padding: 18px 20px;
-  border-radius: 0 8px 8px 8px;
+  padding: 20px 25px;
+  border-radius: 0 12px 12px 12px;
   display: flex;
   gap: 15px;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 10px 32px 0 rgba(0, 0, 0, 0.3);
   flex-wrap: wrap;
 }
 
-/* Grupos de inputs individuales */
 .input-group {
   display: flex;
   flex-direction: column;
@@ -109,21 +115,19 @@
   width: 100%;
 }
 
-/* Estilos específicos para los campos */
 .search-select option {
-  color: #333; /* Opciones del dropdown legibles en negro */
+  color: #333;
   background-color: white;
 }
 
 .input-group.drop-group {
-  padding: 17px 12px; /* Alineación perfecta para el select sin etiqueta */
+  padding: 17px 12px;
 }
 
 .qty-input {
   text-align: center;
 }
 
-/* Botón Buscar (Actualizado al Dorado Premium Inti) */
 .btn-group {
   flex: 1.2;
   min-width: 180px;
@@ -131,7 +135,7 @@
 
 .btn-buscar {
   width: 100%;
-  background-color: #ffb703; /* ✨ Corregido: Mismo dorado de las tarjetas */
+  background-color: #ffb703;
   color: #1e293b;
   border: none;
   padding: 16px;
@@ -150,7 +154,6 @@
   box-shadow: 0 6px 15px rgba(255, 183, 3, 0.35);
 }
 
-/* Responsivo para pantallas pequeñas */
 @media (max-width: 992px) {
   .hero-container { height: auto; padding: 100px 20px; }
   .search-bar-container { position: relative; bottom: 0; width: 100%; margin-top: 30px; }
@@ -159,7 +162,6 @@
   .hero-text h1 { font-size: 3.5rem; }
 }
 
-/* --- SECCIÓN DE RESULTADOS --- */
 .resultados-seccion {
   max-width: 1200px;
   margin: 60px auto;
@@ -174,7 +176,7 @@
 
 .resultados-header h2 {
   font-size: 28px;
-  color: #0f529f; /* Azul institucional Inti */
+  color: #0f529f;
   font-weight: 700;
   margin-bottom: 10px;
 }
@@ -184,14 +186,12 @@
   font-size: 15px;
 }
 
-/* Grid de tarjetas */
 .habitaciones-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 30px;
 }
 
-/* Tarjeta elegante */
 .habitacion-card {
   background: white;
   border-radius: 12px;
@@ -208,7 +208,6 @@
   box-shadow: 0 15px 35px rgba(15, 82, 159, 0.15);
 }
 
-/* Contenedor de Imagen y Badge */
 .habitacion-img-box {
   position: relative;
   height: 230px;
@@ -240,7 +239,6 @@
   opacity: 0.9;
 }
 
-/* Contenido e información */
 .habitacion-detalles {
   padding: 25px;
   display: flex;
@@ -264,7 +262,6 @@
   margin: 0 0 20px 0;
 }
 
-/* Iconos o características */
 .caracteristicas-icons-modern {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -298,9 +295,8 @@
   color: #ffb703;
 }
 
-/* Botón Premium Reservar */
 .btn-seleccionar-hab {
-  background: #ffb703; /* Amarillo/Dorado Inti corporativo */
+  background: #ffb703;
   color: #1e293b;
   border: none;
   padding: 14px;
@@ -323,4 +319,24 @@
 
 .btn-seleccionar-hab:active {
   transform: scale(0.98);
+}
+/* DISEÑO DEL SCROLLBAR PARA EL CHATBOT */
+.chat-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.chat-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: rgba(234, 179, 8, 0.6); /* Dorado semi-transparente */
+  border-radius: 10px;
+}
+.chat-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(234, 179, 8, 1); /* Dorado brillante */
+}
+
+/* EFECTO HOVER PARA LAS PREGUNTAS */
+.btn-pregunta-chat:hover {
+  background: rgba(234, 179, 8, 0.2) !important;
+  border-color: #eab308 !important;
 }

@@ -1,51 +1,86 @@
+/* 1. Contenedor principal de la barra */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 15px 5%;
   background-color: #ffffff;
-  padding: 15px 50px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra suave para darle peso */
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1000; /* Asegura que la barra siempre esté por encima del resto */
 }
 
+/* 2. Logo */
 .brand h1 {
-  color: #007bff;
+  font-size: 1.5rem;
+  color: #0f529f; /* Azul institucional upn */
   margin: 0;
-  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
 }
 
+/* 3. Lista de enlaces */
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 30px;
+  gap: 45px; /* Separación elegante para que no se vean amontonados */
   margin: 0;
   padding: 0;
 }
 
+/* 4. Enlaces individuales (Destinos, Hoteles, Nosotros) */
 .nav-links a {
   text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.nav-links a:hover {
-  color: #007bff;
-}
-
-.btn-login {
-  background-color: #ff9800;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-weight: bold;
+  color: #64748b; /* Gris oscuro elegante, no negro puro */
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 5px 0;
+  position: relative; /* Clave para la animación */
+  transition: color 0.3s ease;
   cursor: pointer;
-  transition: background 0.3s;
+}
+
+/* 5. El truco de la línea animada (Inicia oculta con ancho 0) */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 3px;
+  display: block;
+  margin-top: 4px;
+  left: 50%; /* Empieza desde el centro */
+  transform: translateX(-50%);
+  background: #ffb703; /* Dorado UPN */
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+/* 6. Cuando el usuario pasa el mouse (Hover) */
+.nav-links a:hover {
+  color: #0f529f; /* El texto se pinta de azul UPN */
+}
+
+.nav-links a:hover::after {
+  width: 100%; /* La línea dorada se expande al 100% */
+}
+
+/* 7. Botón de Iniciar Sesión premium */
+.btn-login {
+  background-color: #ffb703;
+  color: #1e293b;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 183, 3, 0.2);
 }
 
 .btn-login:hover {
-  background-color: #e68a00;
+  background-color: #e5a300;
+  transform: translateY(-2px); /* Se levanta un poquito al pasar el mouse */
+  box-shadow: 0 6px 15px rgba(255, 183, 3, 0.35);
 }
