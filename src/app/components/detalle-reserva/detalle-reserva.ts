@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ReservaService } from '../../services/reserva';
+import { WhatsappService } from '../../services/whatsapp.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-detalle-reserva',
@@ -32,8 +34,13 @@ export class DetalleReserva implements OnInit {
   };
 
   mostrarModalExito: boolean = false;
+  whatsappUrl$!: Observable<string>;
 
-  constructor(private router: Router, private reservaService: ReservaService) {
+  constructor(
+    private router: Router,
+    private reservaService: ReservaService,
+    private whatsappService: WhatsappService
+  ) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       this.habitacion = navigation.extras.state['habitacionSeleccionada'];
@@ -42,6 +49,8 @@ export class DetalleReserva implements OnInit {
   }
 
   ngOnInit() {
+    this.whatsappUrl$ = this.whatsappService.obtenerUrlDinamica('Vengo de la página de confirmación de reserva y deseo realizar una consulta sobre mi proceso.');
+
     if (!this.habitacion || !this.busqueda) {
       this.router.navigate(['/']);
       return;
@@ -53,7 +62,7 @@ export class DetalleReserva implements OnInit {
     const entrada = new Date(this.busqueda.fechaLlegada);
     const salida = new Date(this.busqueda.fechaSalida);
     const diferenciaMs = salida.getTime() - entrada.getTime();
-    
+
     this.cantNoches = Math.max(1, Math.ceil(diferenciaMs / (1000 * 60 * 60 * 24)));
 
     this.total = this.habitacion.precioPorNoche * this.cantNoches;
@@ -69,7 +78,7 @@ export class DetalleReserva implements OnInit {
       fechaSalida: this.busqueda.fechaSalida,
       numAdultos: this.busqueda.adultos,
       numNinos: this.busqueda.ninos,
-      idCliente: 7 
+      idCliente: 8
     };
 
     this.reservaService.registrarReserva(dtoFinal).subscribe({

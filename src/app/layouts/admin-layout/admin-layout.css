@@ -1,19 +1,77 @@
+.mobile-topbar {
+  display: none;
+  /* Oculta en desktop */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background-color: #1e293b;
+  color: white;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hamburger-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.hamburger-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 150;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.visible {
+  opacity: 1;
+}
+
 .admin-layout {
   display: flex;
   min-height: 100vh;
   background-color: #f4f7f6;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: -8px; /* Para quitar bordes blancos por defecto */
+  margin: -8px;
 }
 
-/* 🗄️ SIDEBAR (LATERAL IZQUIERDO) */
 .sidebar {
   width: 260px;
-  background-color: #1e293b; /* Azul oscuro elegante */
+  background-color: #1e293b;
   color: white;
   display: flex;
   flex-direction: column;
-  box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
 }
 
 .sidebar-header {
@@ -22,8 +80,17 @@
   border-bottom: 1px solid #334155;
 }
 
-.sidebar-header h2 { margin: 0; font-size: 1.5rem; color: #38bdf8; }
-.sidebar-header p { margin: 5px 0 0 0; font-size: 0.9rem; color: #94a3b8; }
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #38bdf8;
+}
+
+.sidebar-header p {
+  margin: 5px 0 0 0;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
 
 .sidebar-menu {
   list-style: none;
@@ -40,13 +107,264 @@
   font-weight: 500;
 }
 
-.sidebar-menu li:hover, .sidebar-menu li.active {
+.sidebar-menu li:hover,
+.sidebar-menu li.active {
   background-color: #334155;
   color: white;
   border-left: 4px solid #38bdf8;
 }
 
-.sidebar-footer { padding: 20px; }
+.sidebar-footer {
+  padding: 20px;
+}
+
+.btn-logout-lateral {
+  width: 100%;
+  padding: 12px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.btn-logout-lateral:hover {
+  background-color: #dc2626;
+}
+
+/* CONTENIDO PRINCIPAL */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+.header-contenido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header-contenido h2 {
+  margin: 0;
+  color: #334155;
+}
+
+.btn-nuevo {
+  background-color: #38bdf8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.btn-nuevo:hover {
+  background-color: #0ea5e9;
+}
+
+/* 📝 TABLA Y BUSCADOR */
+.tabla-container {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.buscador {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+}
+
+.tabla-admin {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-admin th {
+  background-color: #f8fafc;
+  padding: 15px;
+  text-align: left;
+  color: #64748b;
+  font-size: 0.9rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.tabla-admin td {
+  padding: 15px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.acciones button {
+  border: none;
+  padding: 6px 10px;
+  margin-right: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+}
+
+.btn-editar {
+  background-color: #0ea5e9;
+}
+
+.btn-confirmar {
+  background-color: #10b981;
+}
+
+.btn-eliminar {
+  background-color: #ef4444;
+}
+
+/* 🔗 LINKS DE MENÚ */
+.sidebar-menu a {
+  color: #cbd5e1 !important;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  transition: color 0.2s ease;
+}
+
+.sidebar-menu a app-icon {
+  color: #94a3b8;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar-menu li.active,
+.sidebar-menu li:hover {
+  background-color: #334155;
+  border-left: 4px solid #38bdf8;
+  border-radius: 4px;
+}
+
+.sidebar-menu li:hover a,
+.sidebar-menu li.active a {
+  color: #ffffff !important;
+}
+
+.sidebar-menu li:hover a app-icon,
+.sidebar-menu li.active a app-icon {
+  color: #38bdf8;
+  transform: scale(1.05);
+}
+
+/* ============================
+   📱 RESPONSIVE - MÓVIL
+   ============================ */
+@media (max-width: 768px) {
+
+  /* Mostrar barra superior */
+  .mobile-topbar {
+    display: flex;
+  }
+
+  /* Mostrar overlay cuando está visible */
+  .sidebar-overlay {
+    display: block;
+  }
+
+  /* El layout ahora es columna, con espacio para la topbar */
+  .admin-layout {
+    flex-direction: column;
+    padding-top: 56px;
+    /* Altura de la mobile-topbar */
+  }
+
+  /* Sidebar como cajón deslizante */
+  .sidebar {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    bottom: 0;
+    width: 260px;
+    z-index: 160;
+    transform: translateX(-100%);
+    /* Oculto por defecto */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+  }
+
+  /* Sidebar visible cuando tiene clase .open */
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Contenido ocupa todo el espacio disponible */
+  .main-content {
+    padding: 20px 16px;
+    width: 100%;
+  }
+}
+
+
+
+.sidebar-header {
+  padding: 30px 20px;
+  text-align: center;
+  border-bottom: 1px solid #334155;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #38bdf8;
+}
+
+.sidebar-header p {
+  margin: 5px 0 0 0;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 20px 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.sidebar-menu li {
+  padding: 15px 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.sidebar-menu li:hover,
+.sidebar-menu li.active {
+  background-color: #334155;
+  color: white;
+  border-left: 4px solid #38bdf8;
+}
+
+.sidebar-footer {
+  padding: 20px;
+}
 
 .btn-logout-lateral {
   width: 100%;
@@ -59,11 +377,13 @@
   font-weight: bold;
 }
 
-/* 🖥️ CONTENIDO PRINCIPAL (DERECHA) */
+/*CONTENIDO PRINCIPAL (DERECHA) */
 .main-content {
   flex: 1;
   padding: 40px;
   overflow-y: auto;
+  min-width: 0;
+  /* Permite al contenedor encogerse en layouts flexibles */
 }
 
 .header-contenido {
@@ -73,23 +393,92 @@
   margin-bottom: 30px;
 }
 
-.header-contenido h2 { margin: 0; color: #334155; }
-.btn-nuevo { background-color: #38bdf8; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.header-contenido h2 {
+  margin: 0;
+  color: #334155;
+}
+
+.btn-nuevo {
+  background-color: #38bdf8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
 /* 📝 TABLA Y BUSCADOR */
-.tabla-container { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-.buscador { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #e2e8f0; border-radius: 6px; }
+.tabla-container {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+  /* Permite scroll horizontal local */
+  max-width: 100%;
+  /* Evita que se estire más allá del contenedor padre */
+  -webkit-overflow-scrolling: touch;
+  /* Suavidad en iOS */
+}
 
-.tabla-admin { width: 100%; border-collapse: collapse; }
-.tabla-admin th { background-color: #f8fafc; padding: 15px; text-align: left; color: #64748b; font-size: 0.9rem; border-bottom: 2px solid #e2e8f0; }
-.tabla-admin td { padding: 15px; border-bottom: 1px solid #f1f5f9; color: #334155; }
+.buscador {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+}
 
-.badge { padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; background-color: #fef3c7; color: #d97706; }
+.tabla-admin {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-.acciones button { border: none; padding: 6px 10px; margin-right: 5px; border-radius: 4px; cursor: pointer; color: white; }
-.btn-editar { background-color: #0ea5e9; }
-.btn-confirmar { background-color: #10b981; }
-.btn-eliminar { background-color: #ef4444; }
+.tabla-admin th {
+  background-color: #f8fafc;
+  padding: 15px;
+  text-align: left;
+  color: #64748b;
+  font-size: 0.9rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.tabla-admin td {
+  padding: 15px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.acciones button {
+  border: none;
+  padding: 6px 10px;
+  margin-right: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+}
+
+.btn-editar {
+  background-color: #0ea5e9;
+}
+
+.btn-confirmar {
+  background-color: #10b981;
+}
+
+.btn-eliminar {
+  background-color: #ef4444;
+}
 
 /* 🛠️ CORRECCIÓN DE COLORES PARA LOS ENLACES DEL MENÚ */
 .sidebar-menu a {
@@ -108,19 +497,19 @@
 }
 
 /* 🎨 EFECTO CUANDO PASAS EL MOUSE O ESTÁS EN ESA PANTALLA */
-.sidebar-menu li.active, 
+.sidebar-menu li.active,
 .sidebar-menu li:hover {
   background-color: #334155;
   border-left: 4px solid #38bdf8;
   border-radius: 4px;
 }
 
-.sidebar-menu li:hover a, 
+.sidebar-menu li:hover a,
 .sidebar-menu li.active a {
   color: #ffffff !important;
 }
 
-.sidebar-menu li:hover a app-icon, 
+.sidebar-menu li:hover a app-icon,
 .sidebar-menu li.active a app-icon {
   color: #38bdf8;
   transform: scale(1.05);

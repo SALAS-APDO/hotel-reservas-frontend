@@ -8,7 +8,7 @@
     <div class="card-form">
       <h3>📋 Datos del Huésped Principal</h3>
       <form (ngSubmit)="confirmarReserva()">
-        
+
         <div class="form-group-row">
           <div class="form-group">
             <label>Nombre:</label>
@@ -31,7 +31,8 @@
           </div>
           <div class="form-group">
             <label>Número Documento:</label>
-            <input type="text" [(ngModel)]="formulario.numeroDocumento" name="numeroDocumento" required placeholder="Número de doc">
+            <input type="text" [(ngModel)]="formulario.numeroDocumento" name="numeroDocumento" required
+              placeholder="Número de doc">
           </div>
         </div>
 
@@ -47,7 +48,7 @@
         </div>
 
         <h3 class="seccion-facturacion">💳 Detalles de Facturación</h3>
-        
+
         <div class="form-group-row">
           <div class="form-group">
             <label>Tipo Comprobante:</label>
@@ -58,7 +59,8 @@
           </div>
           <div class="form-group" *ngIf="formulario.tipoComprobante === 'FACTURA'">
             <label>RUC de la Empresa:</label>
-            <input type="text" [(ngModel)]="formulario.rucEmpresa" name="rucEmpresa" placeholder="Ingrese las 11 cifras del RUC">
+            <input type="text" [(ngModel)]="formulario.rucEmpresa" name="rucEmpresa"
+              placeholder="Ingrese las 11 cifras del RUC">
           </div>
         </div>
 
@@ -68,7 +70,7 @@
 
     <div class="card-summary" *ngIf="habitacion">
       <div class="room-tag">{{ habitacion.tipoHabitacion || 'HABITACIÓN SELECCIONADA' }}</div>
-      
+
       <div class="summary-details">
         <p><strong>📅 Entrada:</strong> <span>{{ busqueda.fechaLlegada }}</span></p>
         <p><strong>📅 Salida:</strong> <span>{{ busqueda.fechaSalida }}</span></p>
@@ -100,27 +102,32 @@
   </div>
 </div>
 
-<div *ngIf="mostrarModalExito" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 10000; backdrop-filter: blur(5px);">
-  <div style="background: white; padding: 40px; border-radius: 12px; text-align: center; max-width: 450px; width: 90%; box-shadow: 0 15px 30px rgba(0,0,0,0.3);">
-    <div style="width: 80px; height: 80px; background-color: #27ae60; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 20px auto; box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);">
-      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width: 40px; height: 40px;">
+<div *ngIf="mostrarModalExito"
+  style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 10000; backdrop-filter: blur(5px);">
+  <div
+    style="background: white; padding: 40px; border-radius: 12px; text-align: center; max-width: 450px; width: 90%; box-shadow: 0 15px 30px rgba(0,0,0,0.3);">
+    <div
+      style="width: 80px; height: 80px; background-color: #27ae60; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 20px auto; box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"
+        stroke-linejoin="round" style="width: 40px; height: 40px;">
         <polyline points="20 6 9 17 4 12"></polyline>
       </svg>
     </div>
     <h2 style="color: #0f529f; font-size: 1.8rem; margin-bottom: 10px; font-weight: bold;">¡Reserva Confirmada!</h2>
-    <p style="color: #555; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.5;">Su reserva ha sido procesada con éxito. Lo esperamos en <strong>Hoteles UPN</strong> para disfrutar de sus vacaciones soñadas.</p>
-    <button (click)="cerrarModalExito()" style="background-color: #eab308; color: white; border: none; padding: 12px 30px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(234, 179, 8, 0.3); width: 100%;">
+    <p style="color: #555; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.5;">Su reserva ha sido procesada con
+      éxito. Lo esperamos en <strong>Hoteles UPN</strong> para disfrutar de sus vacaciones soñadas.</p>
+    <button (click)="cerrarModalExito()"
+      style="background-color: #eab308; color: white; border: none; padding: 12px 30px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(234, 179, 8, 0.3); width: 100%;">
       Aceptar y Volver al Inicio
     </button>
   </div>
 </div>
 
-<a href="https://wa.me/51999999999?text=Hola,%20vengo%20de%20la%20página%20web%20y%20quiero%20más%20información%20sobre%20las%20reservas." 
-   class="btn-whatsapp-premium" 
-   target="_blank" 
-   aria-label="Contactar por WhatsApp">
-  
+<a [href]="whatsappUrl$ | async" class="btn-whatsapp-premium" target="_blank" aria-label="Contactar por WhatsApp">
+
   <svg viewBox="0 0 32 32" class="whatsapp-icono">
-    <path d="M16.002 1.332c-8.106 0-14.667 6.562-14.667 14.668 0 2.583.673 5.011 1.838 7.15L1.335 30.668l7.683-1.836c2.091 1.05 4.453 1.636 6.984 1.636 8.106 0 14.667-6.561 14.667-14.668S24.108 1.332 16.002 1.332zm0 26.837c-2.185 0-4.24-.555-6.046-1.527l-.433-.233-4.498 1.076 1.096-4.382-.257-.456A12.062 12.062 0 0 1 3.935 16c0-6.64 5.426-12.066 12.067-12.066s12.066 5.426 12.066 12.066-5.425 12.169-12.066 12.169zm6.615-9.014c-.362-.181-2.146-1.059-2.477-1.18s-.574-.181-.815.181-.937 1.18-1.147 1.42c-.212.242-.424.272-.786.091s-1.53-.564-2.915-1.796c-1.077-.959-1.805-2.142-2.016-2.505-.211-.362-.022-.559.16-.74.162-.161.362-.422.543-.633.181-.211.242-.362.362-.603.121-.242.061-.453-.03-.633-.09-.181-.815-1.962-1.117-2.686-.294-.705-.595-.609-.815-.62-.211-.01-.453-.01-.695-.01s-.633.091-.966.453c-.332.362-1.268 1.238-1.268 3.018s1.3 3.5 1.481 3.742c.181.242 2.552 3.896 6.182 5.464 2.453 1.06 3.393 1.14 4.673.96 1.085-.151 3.14-1.282 3.593-2.52.453-1.237.453-2.302.317-2.523-.135-.221-.497-.352-.86-.533z" fill="currentColor"></path>
+    <path
+      d="M16.002 1.332c-8.106 0-14.667 6.562-14.667 14.668 0 2.583.673 5.011 1.838 7.15L1.335 30.668l7.683-1.836c2.091 1.05 4.453 1.636 6.984 1.636 8.106 0 14.667-6.561 14.667-14.668S24.108 1.332 16.002 1.332zm0 26.837c-2.185 0-4.24-.555-6.046-1.527l-.433-.233-4.498 1.076 1.096-4.382-.257-.456A12.062 12.062 0 0 1 3.935 16c0-6.64 5.426-12.066 12.067-12.066s12.066 5.426 12.066 12.066-5.425 12.169-12.066 12.169zm6.615-9.014c-.362-.181-2.146-1.059-2.477-1.18s-.574-.181-.815.181-.937 1.18-1.147 1.42c-.212.242-.424.272-.786.091s-1.53-.564-2.915-1.796c-1.077-.959-1.805-2.142-2.016-2.505-.211-.362-.022-.559.16-.74.162-.161.362-.422.543-.633.181-.211.242-.362.362-.603.121-.242.061-.453-.03-.633-.09-.181-.815-1.962-1.117-2.686-.294-.705-.595-.609-.815-.62-.211-.01-.453-.01-.695-.01s-.633.091-.966.453c-.332.362-1.268 1.238-1.268 3.018s1.3 3.5 1.481 3.742c.181.242 2.552 3.896 6.182 5.464 2.453 1.06 3.393 1.14 4.673.96 1.085-.151 3.14-1.282 3.593-2.52.453-1.237.453-2.302.317-2.523-.135-.221-.497-.352-.86-.533z"
+      fill="currentColor"></path>
   </svg>
 </a>

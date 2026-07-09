@@ -3,11 +3,18 @@
 
 /* Regla general: Letra fina y estilizada para textos, botones y menús */
 * {
+  box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
 }
 
 /* Regla premium: Letra elegante y pituca SOLO para los títulos */
-h1, h2, h3, h4, h5, h6, .brand h1 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.brand h1 {
   font-family: 'Playfair Display', serif;
   letter-spacing: 0.5px;
 }
@@ -17,6 +24,7 @@ body {
   padding: 0;
   background-color: #f8fafc;
 }
+
 .btn-whatsapp-premium {
   position: fixed;
   bottom: 30px;
@@ -45,7 +53,15 @@ body {
 }
 
 @keyframes latido-whatsapp {
-  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-  70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 20px rgba(37, 211, 102, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
 }

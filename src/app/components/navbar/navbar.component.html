@@ -1,26 +1,32 @@
 <nav class="navbar">
   <div class="brand">
-    <h1 routerLink="/" style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+    <h1 routerLink="/" (click)="menuAbierto = false" style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
       <app-icon name="hotel" [size]="28" style="color: #0284c7;"></app-icon>
       Hoteles UPN
     </h1>
   </div>
 
-  <ul class="nav-links">
-    @if (!isAdmin) {
-    <li><a routerLink="/destinos">Destinos</a></li>
-    <li><a routerLink="/">Hoteles</a></li>
-    <li><a routerLink="/nosotros">Nosotros</a></li>
-    }
-  </ul>
+  <button class="navbar-burger" (click)="toggleMenu()" aria-label="Toggle navigation">
+    <app-icon [name]="menuAbierto ? 'close' : 'menu'" [size]="26"></app-icon>
+  </button>
 
-  <div class="actions">
-    <button *ngIf="!isLogged" routerLink="/login" class="btn-login">Iniciar sesión</button>
+  <div class="navbar-menu-container" [class.active]="menuAbierto">
+    <ul class="nav-links">
+      @if (!isAdmin) {
+      <li><a routerLink="/destinos" (click)="menuAbierto = false">Destinos</a></li>
+      <li><a routerLink="/" (click)="menuAbierto = false">Hoteles</a></li>
+      <li><a routerLink="/nosotros" (click)="menuAbierto = false">Nosotros</a></li>
+      }
+    </ul>
 
-    <button *ngIf="isLogged" (click)="cerrarSesion()" class="btn-logout"
-      style="background-color: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
-      Cerrar sesión <app-icon name="logout" [size]="16"></app-icon>
-    </button>
+    <div class="actions">
+      <button *ngIf="!isLogged" routerLink="/login" (click)="menuAbierto = false" class="btn-login">Iniciar sesión</button>
+
+      <button *ngIf="isLogged" (click)="cerrarSesion()" class="btn-logout"
+        style="background-color: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+        Cerrar sesión <app-icon name="logout" [size]="16"></app-icon>
+      </button>
+    </div>
   </div>
 </nav>
 

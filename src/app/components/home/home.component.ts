@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { HotelService } from '../../services/hotel.service';
 import { Router } from '@angular/router';
 import { IconComponent } from '../icon/icon.component';
+import { WhatsappService } from '../../services/whatsapp.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -38,11 +40,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     { emisor: 'bot', texto: '¡Hola! Bienvenido a Hoteles UPN. Por favor, selecciona una de nuestras preguntas frecuentes a continuación para resolver tus dudas al instante.' }
   ];
   preguntasRespondidas: Set<number> = new Set();
+  
+  whatsappUrl$!: Observable<string>;
 
-  constructor(private hotelService: HotelService, private router: Router) {}
+  constructor(
+    private hotelService: HotelService, 
+    private router: Router,
+    private whatsappService: WhatsappService
+  ) {}
 
   ngOnInit() {
     this.fechaMinima = new Date().toISOString().split('T')[0];
+    
+    // Asignación reactiva de la URL dinámica de WhatsApp con mensaje personalizado de entrada
+    this.whatsappUrl$ = this.whatsappService.obtenerUrlDinamica('Vengo del Home de la web y me gustaría recibir asesoría personalizada.');
 
     this.hotelService.listarHoteles().subscribe({
       next: (data) => {

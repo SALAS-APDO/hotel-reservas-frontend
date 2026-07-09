@@ -14,6 +14,7 @@ import { IconComponent } from '../icon/icon.component';
 export class NavbarComponent implements OnInit {
   isLogged = false;
   isAdmin = false;
+  menuAbierto = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -31,9 +32,14 @@ export class NavbarComponent implements OnInit {
     this.isAdmin = this.authService.esAdministrador();
   }
 
+  toggleMenu(): void {
+    this.menuAbierto = !this.menuAbierto;
+  }
+
   cerrarSesion(): void {
     this.authService.logout();
     this.isAdmin = false;
+    this.menuAbierto = false;
     this.router.navigate(['/']);
   }
 }

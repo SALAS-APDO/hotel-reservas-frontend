@@ -5,16 +5,20 @@
   align-items: center;
   padding: 15px 5%;
   background-color: #ffffff;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra suave para darle peso */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  /* Sombra suave para darle peso */
   position: sticky;
   top: 0;
-  z-index: 1000; /* Asegura que la barra siempre esté por encima del resto */
+  width: 100%;
+  z-index: 1000;
+  /* Asegura que la barra siempre esté por encima del resto */
 }
 
 /* 2. Logo */
 .brand h1 {
   font-size: 1.5rem;
-  color: #0f529f; /* Azul institucional upn */
+  color: #0f529f;
+  /* Azul institucional upn */
   margin: 0;
   font-weight: 800;
   letter-spacing: 0.5px;
@@ -24,7 +28,8 @@
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 45px; /* Separación elegante para que no se vean amontonados */
+  gap: 45px;
+  /* Separación elegante para que no se vean amontonados */
   margin: 0;
   padding: 0;
 }
@@ -32,11 +37,13 @@
 /* 4. Enlaces individuales (Destinos, Hoteles, Nosotros) */
 .nav-links a {
   text-decoration: none;
-  color: #64748b; /* Gris oscuro elegante, no negro puro */
+  color: #64748b;
+  /* Gris oscuro elegante, no negro puro */
   font-weight: 600;
   font-size: 1.05rem;
   padding: 5px 0;
-  position: relative; /* Clave para la animación */
+  position: relative;
+  /* Clave para la animación */
   transition: color 0.3s ease;
   cursor: pointer;
 }
@@ -49,20 +56,24 @@
   height: 3px;
   display: block;
   margin-top: 4px;
-  left: 50%; /* Empieza desde el centro */
+  left: 50%;
+  /* Empieza desde el centro */
   transform: translateX(-50%);
-  background: #ffb703; /* Dorado UPN */
+  background: #ffb703;
+  /* Dorado UPN */
   transition: width 0.3s ease;
   border-radius: 2px;
 }
 
 /* 6. Cuando el usuario pasa el mouse (Hover) */
 .nav-links a:hover {
-  color: #0f529f; /* El texto se pinta de azul UPN */
+  color: #0f529f;
+  /* El texto se pinta de azul UPN */
 }
 
 .nav-links a:hover::after {
-  width: 100%; /* La línea dorada se expande al 100% */
+  width: 100%;
+  /* La línea dorada se expande al 100% */
 }
 
 /* 7. Botón de Iniciar Sesión premium */
@@ -81,6 +92,122 @@
 
 .btn-login:hover {
   background-color: #e5a300;
-  transform: translateY(-2px); /* Se levanta un poquito al pasar el mouse */
+  transform: translateY(-2px);
+  /* Se levanta un poquito al pasar el mouse */
   box-shadow: 0 6px 15px rgba(255, 183, 3, 0.35);
+}
+
+/* --- ESTILOS DE ADAPTABILIDAD (RESPONSIVE) --- */
+
+.navbar-menu-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  margin-left: 45px;
+}
+
+.navbar-burger {
+  display: none;
+  background: none;
+  border: none;
+  color: #0f529f;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-burger:hover {
+  background-color: #f1f5f9;
+}
+
+/* Media query para pantallas tablets/celulares (ancho menor a 768px) */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 20px;
+  }
+
+  .navbar-burger {
+    display: inline-flex;
+    /* Mostramos el botón de hamburguesa en móvil */
+  }
+
+  .navbar-menu-container {
+    display: none;
+    /* Ocultamos el contenedor del menú por defecto */
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    /* Justo debajo del navbar */
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 24px 30px;
+    gap: 20px;
+    box-sizing: border-box;
+    z-index: 9999;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #f1f5f9;
+    animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Clase activa que muestra el menú en móvil */
+  .navbar-menu-container.active {
+    display: flex;
+  }
+
+  .navbar-menu-container .nav-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar-menu-container .nav-links li {
+    width: 100%;
+  }
+
+  .navbar-menu-container .nav-links a {
+    display: block;
+    padding: 10px 0;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .navbar-menu-container .nav-links a::after {
+    display: none;
+    /* Quitamos la línea hover de escritorio en móvil */
+  }
+
+  .navbar-menu-container .actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .navbar-menu-container .btn-login,
+  .navbar-menu-container .btn-logout {
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    font-size: 1.05rem;
+    box-sizing: border-box;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

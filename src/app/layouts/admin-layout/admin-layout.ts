@@ -7,16 +7,26 @@ import { IconComponent } from '../../components/icon/icon.component';
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule, IconComponent], 
+  imports: [CommonModule, RouterModule, IconComponent],
   templateUrl: './admin-layout.html', // (Ojo: verifica si tu archivo termina en .html o .component.html)
   styleUrls: ['./admin-layout.css']   // (Ojo: igual aquí con el .css)
 })
 export class AdminLayout {
 
+  sidebarOpen: boolean = false;
+
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
+  closeSidebar() {
+    this.sidebarOpen = false;
+  }
 
   cerrarSesionAdmin() {
     this.authService.logout();

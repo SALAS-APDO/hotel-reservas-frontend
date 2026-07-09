@@ -3,17 +3,19 @@
   min-height: 100vh;
   background-color: #f4f7f6;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: -8px; /* Para quitar bordes blancos por defecto */
+  margin: -8px;
+  /* Para quitar bordes blancos por defecto */
 }
 
 /* 🗄️ SIDEBAR (LATERAL IZQUIERDO) */
 .sidebar {
   width: 260px;
-  background-color: #1e293b; /* Azul oscuro elegante */
+  background-color: #1e293b;
+  /* Azul oscuro elegante */
   color: white;
   display: flex;
   flex-direction: column;
-  box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-header {
@@ -22,8 +24,17 @@
   border-bottom: 1px solid #334155;
 }
 
-.sidebar-header h2 { margin: 0; font-size: 1.5rem; color: #38bdf8; }
-.sidebar-header p { margin: 5px 0 0 0; font-size: 0.9rem; color: #94a3b8; }
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #38bdf8;
+}
+
+.sidebar-header p {
+  margin: 5px 0 0 0;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
 
 .sidebar-menu {
   list-style: none;
@@ -40,13 +51,16 @@
   font-weight: 500;
 }
 
-.sidebar-menu li:hover, .sidebar-menu li.active {
+.sidebar-menu li:hover,
+.sidebar-menu li.active {
   background-color: #334155;
   color: white;
   border-left: 4px solid #38bdf8;
 }
 
-.sidebar-footer { padding: 20px; }
+.sidebar-footer {
+  padding: 20px;
+}
 
 .btn-logout-lateral {
   width: 100%;
@@ -73,18 +87,69 @@
   margin-bottom: 30px;
 }
 
-.header-contenido h2 { margin: 0; color: #334155; }
-.btn-nuevo { background-color: #38bdf8; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.header-contenido h2 {
+  margin: 0;
+  color: #334155;
+}
+
+.btn-nuevo {
+  background-color: #38bdf8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
 /* 📝 TABLA Y BUSCADOR */
-.tabla-container { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-.buscador { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #e2e8f0; border-radius: 6px; }
+.tabla-container {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+  /* Permite desplazamiento horizontal local en tablas */
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
 
-.tabla-admin { width: 100%; border-collapse: collapse; }
-.tabla-admin th { background-color: #f8fafc; padding: 15px; text-align: left; color: #64748b; font-size: 0.9rem; border-bottom: 2px solid #e2e8f0; }
-.tabla-admin td { padding: 15px; border-bottom: 1px solid #f1f5f9; color: #334155; }
+.buscador {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+}
 
-.badge { padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; background-color: #fef3c7; color: #d97706; }
+.tabla-admin {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-admin th {
+  background-color: #f8fafc;
+  padding: 15px;
+  text-align: left;
+  color: #64748b;
+  font-size: 0.9rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.tabla-admin td {
+  padding: 15px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  background-color: #fef3c7;
+  color: #d97706;
+}
 
 /* Botones de acción en la tabla */
 .acciones-celda {
@@ -110,6 +175,7 @@
 .btn-editar {
   background-color: #0ea5e9;
 }
+
 .btn-editar:hover {
   background-color: #0284c7;
   transform: translateY(-2px);
@@ -118,6 +184,7 @@
 .btn-aprobar {
   background-color: #10b981;
 }
+
 .btn-aprobar:hover {
   background-color: #059669;
   transform: translateY(-2px);
@@ -126,6 +193,7 @@
 .btn-eliminar {
   background-color: #ef4444;
 }
+
 .btn-eliminar:hover {
   background-color: #dc2626;
   transform: translateY(-2px);
@@ -134,8 +202,10 @@
 /* 🪟 ESTILOS PARA EL MODAL DE EDICIÓN */
 .modal-overlay {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
@@ -148,7 +218,7 @@
   padding: 25px;
   border-radius: 10px;
   width: 350px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .modal-content h3 {
@@ -203,14 +273,20 @@
   font-weight: bold;
 }
 
-.btn-cancelar:hover { background-color: #c0392b; }
-.btn-guardar:hover { background-color: #219150; }
+.btn-cancelar:hover {
+  background-color: #c0392b;
+}
+
+.btn-guardar:hover {
+  background-color: #219150;
+}
 
 /* 📋 ESTILOS EXTRAS PARA EL FORMULARIO DE REGISTRO */
 .modal-content.modal-grande {
   width: 550px;
   max-height: 85vh;
-  overflow-y: auto; /* Permite scroll si la pantalla es pequeña */
+  overflow-y: auto;
+  /* Permite scroll si la pantalla es pequeña */
 }
 
 .modal-content fieldset {
@@ -239,4 +315,34 @@
 
 .form-group-full {
   width: 100%;
+}
+
+/* --- RESPONSIVIDAD PARA EL ARCHIVO LOCAL DE DASHBOARD --- */
+@media (max-width: 768px) {
+  .header-contenido {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .header-contenido div {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .header-contenido button {
+    flex: 1;
+    min-width: 120px;
+    justify-content: center;
+  }
+
+  .row-form {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .modal-content.modal-grande {
+    width: 90% !important;
+    padding: 15px;
+  }
 }
