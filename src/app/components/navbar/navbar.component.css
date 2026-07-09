@@ -30,7 +30,7 @@
   display: flex;
   gap: 45px;
   /* Separación elegante para que no se vean amontonados */
-  margin: 0;
+  margin: auto;
   padding: 0;
 }
 
