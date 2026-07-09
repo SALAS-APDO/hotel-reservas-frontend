@@ -71,9 +71,11 @@ export class DetalleReserva implements OnInit {
   }
 
   confirmarReserva() {
+    console.log('Habitación recibida:', this.habitacion);
+
     const dtoFinal = {
       ...this.formulario,
-      idHabitacion: this.habitacion.idHabitacion,
+      idHabitacion: this.habitacion.idHabitacion || this.habitacion.id,
       fechaEntrada: this.busqueda.fechaLlegada,
       fechaSalida: this.busqueda.fechaSalida,
       numAdultos: this.busqueda.adultos,
@@ -81,11 +83,14 @@ export class DetalleReserva implements OnInit {
       idCliente: 8
     };
 
+    console.log('DTO enviado:', dtoFinal);
+
     this.reservaService.registrarReserva(dtoFinal).subscribe({
       next: () => {
         this.mostrarModalExito = true;
       },
       error: (err) => {
+        console.error('Error real:', err);
         alert("Hubo un error al procesar la reserva. Verifica los datos.");
       }
     });
